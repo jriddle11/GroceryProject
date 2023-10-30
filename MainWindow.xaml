@@ -11,7 +11,26 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button Click="SelectImage" Grid.Column="0" Height="40" Width="200">Select Image</Button>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+            <Button Click="SelectImage" Grid.Row="0" Height="40" Width="200">Select Image</Button>
+            <TextBlock x:Name="store" FontSize="20" Grid.Row="1">StoreName</TextBlock>
+            <TextBlock x:Name="address" FontSize="20" Grid.Row="2">Address</TextBlock>
+            <TextBlock x:Name="total" FontSize="20" Grid.Row="3">total</TextBlock>
+            <TextBlock x:Name="subtotal" FontSize="20" Grid.Row="4">subtotal</TextBlock>
+            <TextBlock x:Name="tax1" FontSize="20" Grid.Row="5">tax1</TextBlock>
+            <TextBlock x:Name="tax2" FontSize="20" Grid.Row="6">tax2</TextBlock>
+        </Grid>
         <TextBox x:Name="richText" Grid.Column="1"/>
     </Grid>
 </Window>

@@ -42,8 +42,17 @@ namespace GroceryProject
                 // Open document
                 string filename = dialog.FileName;
                 TextImager ts = new();
-                var text = ts.ConvertImageToText(filename);
+                string text = ts.ConvertImageToText(filename);
+                text = text.ToUpper();
                 richText.Text = text;
+                string[] doc = text.Split('\n');
+                address.Text = doc.Length + "";
+                store.Text = ts.FindStoreName(doc);
+                decimal[] totals = ts.FindTaxAndTotals(doc);
+                subtotal.Text = totals[0] + "";
+                total.Text = totals[1] + "";
+                tax1.Text = totals[2] + "";
+                tax2.Text = totals[3] + "";
             }
         }
     }
