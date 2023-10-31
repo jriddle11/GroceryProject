@@ -10,24 +10,36 @@ namespace GroceryProject
     class TextImager
     {
         private string[] supportedStoreNames = { "WALMART", "ALMART", "WLMART", "WLMRT", "TARGET", "TAGET", "TRGET", "TARGT" };
-        private string[] totalKeyWords = { "SUBTOTAL", "SBTOTAL", "UBTOTAL", "SUBTTAL", "SUBTOTA", "TOTAL", "TTAL", "OTAL", "TAX" };
+        private string[] totalKeyWords = { "SUBTOTAL", "SBTOTAL", "UBTOTAL", "SUBTTAL", "SUBTOTA", "TOTAL", "0TAL", "OTAL", "TAX" };
         private int storeIndex = 0;
         private int totalIndex = 0;
 
         public string ConvertImageToText(string pathName)
         {
-            IronTesseract IronOcr = new IronTesseract();
+
+            IronTesseract IronOcr = new IronTesseract()
+            {
+
+                Language = OcrLanguage.EnglishBest,
+                Configuration = new TesseractConfiguration()
+                {
+                    ReadBarCodes = false,
+                    BlackListCharacters = "`ë|^®-,<#:¥!~»¢;[]/\\()<>",
+                }
+            };
+
+
             using (var input = new OcrInput(pathName))
             {
                 input.Deskew();
-                input.Scale(200);
-                input.DeNoise();
                 input.Sharpen();
-                input.Contrast();
+                input.Dilate();
+                input.Binarize();
+                input.Open();
                 var Result = IronOcr.Read(input);
                 return Result.Text;
             }
-            
+
         }
         public string FindStoreName(string[] doc)
         {
@@ -36,7 +48,7 @@ namespace GroceryProject
             {
                 if (StoreFound(s))
                 {
-                    storeName = SharpenName(s);
+                    storeName = SharpenStoreName(s);
                     break;
                 }
             }
@@ -48,7 +60,7 @@ namespace GroceryProject
             decimal[] totals = { 0m, 0m, 0m, 0m};
             foreach(string s in doc)
             {
-                if (CheckIfTotal(s))
+                if (CheckIfTotalOrTax(s))
                 {
                     SharpenTotalAndTaxes(s, totals);
                 }
@@ -56,7 +68,67 @@ namespace GroceryProject
             return totals;
         }
 
-        private bool CheckIfTotal(string s)
+        public List<string[]> FindItems(string[] doc)
+        {
+            List<string[]> items = new List<string[]>();
+            foreach(string line in doc)
+            {
+                string[] arr = line.Split(' ');
+                if(arr.Length > 3)
+                {
+                    CheckAndGetItem(arr, items);
+                }
+            }
+            return items;
+        }
+
+        private void CheckAndGetItem(string[] line, List<string[]> list)
+        {
+            for (int i = 1; i < line.Length - 1; i++)
+            {
+                try
+                {
+                    ulong code = ulong.Parse(line[i]);
+                    if (code > 1000000)
+                    {
+                        string[] item = new string[3];
+                        item[1] = line[i];
+                        string name = "";
+                        for (int j = 0; j < i; j++)
+                        {
+                            name = name + line[j] + " ";
+                        }
+                        item[0] = name;
+                        for (int y = i + 1; y < line.Length; ++y)
+                        {
+                            if (line[y].Length > 3)
+                            {
+                                try
+                                {
+                                    decimal price = decimal.Parse(line[y]);
+                                    item[2] = price + "";
+
+                                }
+                                catch
+                                {
+
+                                }
+                            }
+                        }
+
+                        list.Add(item);
+
+
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
+        private bool CheckIfTotalOrTax(string s)
         {
             for(int i = 0; i < totalKeyWords.Length; i++)
             {
@@ -73,7 +145,7 @@ namespace GroceryProject
         {
             if(totalIndex < 5)
             {
-                decimal subtotal = SharpenTotal(s);
+                decimal subtotal = SharpenAmount(s);
                 if(totals[0] < subtotal)
                 {
                     totals[0] = subtotal;
@@ -81,7 +153,7 @@ namespace GroceryProject
             }
             else if(totalIndex < 8)
             {
-                decimal total = SharpenTotal(s);
+                decimal total = SharpenAmount(s);
                 if (totals[1] < total)
                 {
                     totals[1] = total;
@@ -89,7 +161,7 @@ namespace GroceryProject
             }
             else
             {
-                decimal tax = SharpenTotal(s);
+                decimal tax = SharpenAmount(s);
                 if(totals[2] == 0)
                 {
                     totals[2] = tax;
@@ -100,40 +172,19 @@ namespace GroceryProject
                 }
             }
         }
-        private decimal SharpenTotal(string s)
+        private decimal SharpenAmount(string s)
         {
             string[] line = s.Split(' ');
-            int percentIndex = -1;
-            int index = 0;
-            decimal max = 0;
-            for (int i = 0; i < line.Length; i++)
+            decimal amount = 0;
+            try
             {
-                if (line[i].Contains("%"))
-                {
-                    percentIndex = i;
-                }
+                amount = decimal.Parse(line[line.Length - 1]);
+                
             }
-            if (percentIndex >= 0)
-            {
-                index = percentIndex;
+            catch{
+
             }
-            while (index < line.Length)
-            {
-                decimal amount = 0;
-                try
-                {
-                    amount = Decimal.Parse(line[index]);
-                }
-                catch
-                {
-                }
-                if (amount > max)
-                {
-                    max = amount;
-                }
-                index++;
-            }
-            return max;
+            return amount;
 
         }
         public string FindAddress(string[] doc)
@@ -154,7 +205,7 @@ namespace GroceryProject
             return false;
         }
 
-        private string SharpenName(string s)
+        private string SharpenStoreName(string s)
         {
             if(s == "NULL") { return "NULL"; }
             if(storeIndex < 4) { return "Walmart"; }

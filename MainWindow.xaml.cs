@@ -31,7 +31,7 @@ namespace GroceryProject
             var dialog = new Microsoft.Win32.OpenFileDialog();
             dialog.FileName = "Document"; // Default file name
             dialog.DefaultExt = ".txt"; // Default file extension
-            dialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)| *.jpg; *.jpeg; *.gif; *.bmp";
+            dialog.Filter = "Image Files(*.jpg; *.jpeg; *.png; *.gif; *.bmp)| *.jpg; *.jpeg; *.png; *.gif; *.bmp";
 
             // Show open file dialog box
             bool? result = dialog.ShowDialog();
@@ -53,6 +53,12 @@ namespace GroceryProject
                 total.Text = totals[1] + "";
                 tax1.Text = totals[2] + "";
                 tax2.Text = totals[3] + "";
+                List<string[]> items = ts.FindItems(doc);
+                foreach(string[] item in items)
+                {
+                    itemsBox.Text += item[0] + "     " + item[1] + "    $" + item[2] + '\n';
+                }
+                itemsBox.Text += items.Count;
             }
         }
     }
