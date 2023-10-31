@@ -46,7 +46,7 @@ namespace GroceryProject
                 text = text.ToUpper();
                 richText.Text = text;
                 string[] doc = text.Split('\n');
-                address.Text = doc.Length + "";
+                lineCount.Text = doc.Length + "";
                 store.Text = ts.FindStoreName(doc);
                 decimal[] totals = ts.FindTaxAndTotals(doc);
                 subtotal.Text = totals[0] + "";

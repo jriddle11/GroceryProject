@@ -25,7 +25,7 @@
             </Grid.RowDefinitions>
             <Button Click="SelectImage" Grid.Row="0" Height="40" Width="200">Select Image</Button>
             <TextBlock x:Name="store" FontSize="20" Grid.Row="1">StoreName</TextBlock>
-            <TextBlock x:Name="address" FontSize="20" Grid.Row="2">Address</TextBlock>
+            <TextBlock x:Name="lineCount" FontSize="20" Grid.Row="2">LineCount</TextBlock>
             <TextBlock x:Name="total" FontSize="20" Grid.Row="3">total</TextBlock>
             <TextBlock x:Name="subtotal" FontSize="20" Grid.Row="4">subtotal</TextBlock>
             <TextBlock x:Name="tax1" FontSize="20" Grid.Row="5">tax1</TextBlock>

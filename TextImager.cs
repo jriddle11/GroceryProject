@@ -9,7 +9,7 @@ namespace GroceryProject
 {
     class TextImager
     {
-        private string[] supportedStoreNames = { "WALMART", "ALMART", "WLMART", "WLMRT", "TARGET", "TAGET", "TRGET", "TARGT" };
+        private string[] supportedStoreNames = { "WALMART", "ALMART", "WLMART", "WLMRT", "TARGET", "ARGET", "TRGET", "TARGE" };
         private string[] totalKeyWords = { "SUBTOTAL", "SBTOTAL", "UBTOTAL", "SUBTTAL", "SUBTOTA", "TOTAL", "0TAL", "OTAL", "TAX" };
         private int storeIndex = 0;
         private int totalIndex = 0;
@@ -20,11 +20,11 @@ namespace GroceryProject
             IronTesseract IronOcr = new IronTesseract()
             {
 
-                Language = OcrLanguage.EnglishBest,
+                Language = OcrLanguage.EnglishFast,
                 Configuration = new TesseractConfiguration()
                 {
                     ReadBarCodes = false,
-                    BlackListCharacters = "`ë|^®-,<#:¥!~»¢;[]/\\()<>",
+                    BlackListCharacters = "`ë|^®-<#:¥!~»¢;[]/\\()<>+°",
                 }
             };
 
@@ -89,7 +89,7 @@ namespace GroceryProject
                 try
                 {
                     ulong code = ulong.Parse(line[i]);
-                    if (code > 1000000)
+                    if (code > 100000)
                     {
                         string[] item = new string[3];
                         item[1] = line[i];
