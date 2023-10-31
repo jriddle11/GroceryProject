@@ -31,11 +31,12 @@ namespace GroceryProject
             var dialog = new Microsoft.Win32.OpenFileDialog();
             dialog.FileName = "Document"; // Default file name
             dialog.DefaultExt = ".txt"; // Default file extension
-            dialog.Filter = "Image Files(*.jpg; *.jpeg; *.png; *.gif; *.bmp)| *.jpg; *.jpeg; *.png; *.gif; *.bmp";
+            dialog.Filter = "Image Files(*.jpg; *.jpeg; *.png; *.gif; *.pdf; *.bmp)| *.jpg; *.jpeg; *.png; *.pdf; *.gif; *.bmp";
 
             // Show open file dialog box
             bool? result = dialog.ShowDialog();
 
+            ClearText();
             // Process open file dialog box results
             if (result == true)
             {
@@ -60,6 +61,18 @@ namespace GroceryProject
                 }
                 itemsBox.Text += items.Count;
             }
+        }
+
+        private void ClearText()
+        {
+            richText.Text = "";
+            lineCount.Text = "LineCount";
+            store.Text = "StoreName";
+            subtotal.Text = "subtotal";
+            total.Text = "total";
+            tax1.Text = "tax1";
+            tax2.Text = "tax2";
+            itemsBox.Text = "";
         }
     }
 }

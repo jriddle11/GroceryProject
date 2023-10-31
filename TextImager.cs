@@ -16,7 +16,6 @@ namespace GroceryProject
 
         public string ConvertImageToText(string pathName)
         {
-
             IronTesseract IronOcr = new IronTesseract()
             {
 
@@ -24,20 +23,34 @@ namespace GroceryProject
                 Configuration = new TesseractConfiguration()
                 {
                     ReadBarCodes = false,
-                    BlackListCharacters = "`ë|^®-<#:¥!~»¢;[]/\\()<>+°",
+                    BlackListCharacters = "`ë|^®-#:¥!~»¢;[]/\\(){}@<>°",
                 }
             };
-
-
-            using (var input = new OcrInput(pathName))
+            if (pathName.Contains(".pdf"))
             {
-                input.Deskew();
-                input.Sharpen();
-                input.Dilate();
-                input.Binarize();
-                input.Open();
-                var Result = IronOcr.Read(input);
-                return Result.Text;
+                using (var input = new OcrInput())
+                {
+                    input.AddPdf(pathName, "");
+                    var Result = IronOcr.Read(input);
+                    return Result.Text;
+                }
+            }
+            else if (pathName.Contains(".PNG") || pathName.Contains(".JPG") || pathName.Contains(".jpg") || pathName.Contains(".png"))
+            {
+                using (var input = new OcrInput(pathName))
+                {
+                    input.Deskew();
+                    input.Sharpen();
+                    input.Dilate();
+                    input.Binarize();
+                    input.Open();
+                    var Result = IronOcr.Read(input);
+                    return Result.Text;
+                }
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("Invalid FIle type. File can only be: .pdf, .jpg, .png. File used: " + pathName);
             }
 
         }
@@ -187,11 +200,6 @@ namespace GroceryProject
             return amount;
 
         }
-        public string FindAddress(string[] doc)
-        {
-            return "NULL";
-        }
-
         private bool StoreFound(string s)
         {
             for(int i = 0; i < supportedStoreNames.Length; i++)
