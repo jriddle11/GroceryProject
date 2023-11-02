@@ -7,14 +7,41 @@ using IronOcr;
 
 namespace GroceryProject
 {
-    class TextImager
+    /// <summary>
+    /// Definition of the ReceiptReader class
+    /// </summary>
+    public class ReceiptReader
     {
+        /// <summary>
+        /// The text of the read receipt
+        /// </summary>
+        public string Text { get; private set; }
+        /// <summary>
+        /// The receipt text split into lines
+        /// </summary>
+        public string[] ReceiptLines;
+        /// <summary>
+        /// Key terms to search the receipt text for store names
+        /// </summary>
         private string[] supportedStoreNames = { "WALMART", "ALMART", "WLMART", "WLMRT", "TARGET", "ARGET", "TRGET", "TARGE" };
+        /// <summary>
+        /// Key terms to search the receipt text for the subtotal, total, tax1 and tax2
+        /// </summary>
         private string[] totalKeyWords = { "SUBTOTAL", "SBTOTAL", "UBTOTAL", "SUBTTAL", "SUBTOTA", "TOTAL", "0TAL", "OTAL", "TAX" };
+        /// <summary>
+        /// The receipt line number where the store name was found
+        /// </summary>
         private int storeIndex = 0;
+        /// <summary>
+        /// The receipt line number where a total, subtotal, tax1 or tax2 was found
+        /// </summary>
         private int totalIndex = 0;
-
-        public string ConvertImageToText(string pathName)
+        /// <summary>
+        /// Reads an image file and converts it to text (only .jpg supported currently)
+        /// </summary>
+        /// <param name="pathName">The image to read</param>
+        /// <param name="scanType">The type of scan used. 0: Best for searching numbers. 1: Best for searching letters</param>
+        public void Read(string pathName, int scanType)
         {
             IronTesseract IronOcr = new IronTesseract()
             {
@@ -23,21 +50,23 @@ namespace GroceryProject
                 Configuration = new TesseractConfiguration()
                 {
                     ReadBarCodes = false,
-                    BlackListCharacters = "`ë|^®-#:¥!~»¢;[]/\\(){}@<>°",
+                    BlackListCharacters = "`ë|^®-:¥!~»¢;[]?/\\(){}@<>°",
                 }
             };
-            if (pathName.Contains(".pdf"))
+            ConvertJPGToText(pathName, IronOcr, scanType);
+
+        }
+        /// <summary>
+        /// Converts a .jpg file to text
+        /// </summary>
+        /// <param name="pathName">A .jpg file</param>
+        /// <param name="IronOcr">An IronTesseract object</param>
+        /// <param name="scanType">The scan type, 0 or 1</param>
+        private void ConvertJPGToText(string pathName, IronTesseract IronOcr, int scanType)
+        {
+            using (var input = new OcrInput(pathName))
             {
-                using (var input = new OcrInput())
-                {
-                    input.AddPdf(pathName, "");
-                    var Result = IronOcr.Read(input);
-                    return Result.Text;
-                }
-            }
-            else if (pathName.Contains(".PNG") || pathName.Contains(".JPG") || pathName.Contains(".jpg") || pathName.Contains(".png"))
-            {
-                using (var input = new OcrInput(pathName))
+                if (scanType == 0)
                 {
                     input.Deskew();
                     input.Sharpen();
@@ -45,19 +74,43 @@ namespace GroceryProject
                     input.Binarize();
                     input.Open();
                     var Result = IronOcr.Read(input);
-                    return Result.Text;
+                    Text = Result.Text.ToUpper();
+                    ReceiptLines = Text.Split("\n");
+                }
+                else
+                {
+                    IronOcr.Language = OcrLanguage.EnglishBest;
+                    input.Scale(200);
+                    input.Dilate();
+                    input.Binarize();
+                    input.Contrast();
+                    input.Sharpen();
+                    input.Open();
+
+                    var Result = IronOcr.Read(input);
+                    Text = Result.Text.ToUpper();
+                    ReceiptLines = Text.Split("\n");
                 }
             }
-            else
-            {
-                throw new ArgumentOutOfRangeException("Invalid FIle type. File can only be: .pdf, .jpg, .png. File used: " + pathName);
-            }
-
         }
-        public string FindStoreName(string[] doc)
+
+        public string FindReceiptID()
+        {
+            string id = "NULL";
+            foreach (string s in ReceiptLines)
+            {
+                if (s.Contains("ID #"))
+                {
+                    id = s.Substring(s.IndexOf("ID #") + 4);
+                    break;
+                }
+            }
+            return id;
+        }
+        public string FindStoreName()
         {
             string storeName = "NULL";
-            foreach(string s in doc)
+            foreach(string s in ReceiptLines)
             {
                 if (StoreFound(s))
                 {
@@ -68,10 +121,10 @@ namespace GroceryProject
             return storeName;
         }
 
-        public decimal[] FindTaxAndTotals(string[] doc)
+        public decimal[] FindTaxAndTotals()
         {
             decimal[] totals = { 0m, 0m, 0m, 0m};
-            foreach(string s in doc)
+            foreach(string s in ReceiptLines)
             {
                 if (CheckIfTotalOrTax(s))
                 {
@@ -81,10 +134,10 @@ namespace GroceryProject
             return totals;
         }
 
-        public List<string[]> FindItems(string[] doc)
+        public List<string[]> FindItems()
         {
             List<string[]> items = new List<string[]>();
-            foreach(string line in doc)
+            foreach(string line in ReceiptLines)
             {
                 string[] arr = line.Split(' ');
                 if(arr.Length > 3)

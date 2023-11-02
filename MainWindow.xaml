@@ -30,6 +30,7 @@
             <TextBlock x:Name="subtotal" FontSize="20" Grid.Row="4">subtotal</TextBlock>
             <TextBlock x:Name="tax1" FontSize="20" Grid.Row="5">tax1</TextBlock>
             <TextBlock x:Name="tax2" FontSize="20" Grid.Row="6">tax2</TextBlock>
+            <TextBlock x:Name="id" FontSize="20" Grid.Row="7">id</TextBlock>
             <TextBox x:Name="itemsBox" Grid.Row="8"/>
         </Grid>
         <TextBox x:Name="richText" Grid.Column="1"/>

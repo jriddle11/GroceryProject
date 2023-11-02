@@ -29,9 +29,9 @@ namespace GroceryProject
         {
             // Configure open file dialog box
             var dialog = new Microsoft.Win32.OpenFileDialog();
-            dialog.FileName = "Document"; // Default file name
-            dialog.DefaultExt = ".txt"; // Default file extension
-            dialog.Filter = "Image Files(*.jpg; *.jpeg; *.png; *.gif; *.pdf; *.bmp)| *.jpg; *.jpeg; *.png; *.pdf; *.gif; *.bmp";
+            dialog.FileName = "Scan"; // Default file name
+            dialog.DefaultExt = ".jpg"; // Default file extension
+            dialog.Filter = "Image Files(*.jpg; *.jpeg)| *.jpg; *.jpeg;";
 
             // Show open file dialog box
             bool? result = dialog.ShowDialog();
@@ -42,24 +42,23 @@ namespace GroceryProject
             {
                 // Open document
                 string filename = dialog.FileName;
-                TextImager ts = new();
-                string text = ts.ConvertImageToText(filename);
-                text = text.ToUpper();
-                richText.Text = text;
-                string[] doc = text.Split('\n');
-                lineCount.Text = doc.Length + "";
-                store.Text = ts.FindStoreName(doc);
-                decimal[] totals = ts.FindTaxAndTotals(doc);
-                subtotal.Text = totals[0] + "";
-                total.Text = totals[1] + "";
-                tax1.Text = totals[2] + "";
-                tax2.Text = totals[3] + "";
-                List<string[]> items = ts.FindItems(doc);
+                ReceiptReader receiptReader = new();
+                receiptReader.Read(filename, 1);
+                Receipt r = new Receipt(receiptReader);
+                richText.Text = receiptReader.Text;
+                lineCount.Text = receiptReader.ReceiptLines.Length + "";
+                store.Text = r.StoreName;
+                subtotal.Text = r.SubTotal + "";
+                total.Text = r.Total + "";
+                tax1.Text = r.Tax1 + "";
+                tax2.Text = r.Tax2 + "";
+                List<string[]> items = r.PurchasedItems;
                 foreach(string[] item in items)
                 {
                     itemsBox.Text += item[0] + "     " + item[1] + "    $" + item[2] + '\n';
                 }
                 itemsBox.Text += items.Count;
+                id.Text = r.ID;
             }
         }
 
