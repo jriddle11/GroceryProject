@@ -60,6 +60,7 @@ namespace GroceryProject
             itemsBox.Text += items.Count;
             lineCount.Text = receiptReader.ReceiptLines.Length + "";
             id.Text = r.ID;
+            box.Text = r.Street + " " + r.City + " " + r.State + " " + r.PostalCode;
         }
 
         private void ClearText()

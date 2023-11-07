@@ -36,11 +36,91 @@ namespace GroceryProject
         /// The receipt line number where a total, subtotal, tax1 or tax2 was found
         /// </summary>
         private int totalIndex = 0;
+        /// <summary>
+        /// String array of all state abreviations
+        /// </summary>
+        private string[] _stateAbbreviations = {
+         "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
+        "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
+        "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
+        "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
+        "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"
+        };
+
+        private string[] _streetSuffixes = {
+        "AVENUE", "AVE", "BOULEVARD", "BLVD", "CIRCLE", "CIR", "COURT", "CT", "DRIVE", "DR",
+        "LANE", "LN", "PLACE", "PL", "ROAD", "RD", "STREET", "ST", "TERRACE", "TER",
+        "WAY", "CRESCENT", "CR", "SQUARE", "SQ", "ALLEY", "ALY", "PARK", "PK", "TRAIL", "TRL",
+        "PATH", "HIGHWAY", "HWY", "LOOP", "RIDGE", "RD", "PARKWAY", "PLZ", "GROVE", "GRV", "VIEW", "HILL",
+        "MALL", "WALK", "BRIDGE", "ROW", "COMMONS", "GATE", "CROSSING", "XING", "POINT", "PT",
+        "EXPRESSWAY", "EXPWY", "CLOSE", "CL", "PASS", "PSS", "GARDENS", "GDNS", "COVE", "MEADOW",
+        "MD", "HARBOR", "HBR", "GLEN", "LN", "RUN", "PIKE", "PK", "CANYON", "DIVIDE", "DV",
+        "MOUNT", "MT", "TRAIL", "TRL",
+        };
 
         public ReceiptReader(ImageReader reader)
         {
             Text = reader.Text;
             ReceiptLines = Text.Split('\n');
+        }
+
+        public string[] FindAddress()
+        {
+            string[] address = new string[4];
+            for(int i = 0; i < ReceiptLines.Length; ++i)
+            {
+                AddressCheck(ReceiptLines[i], address);
+                StreetCheck(ReceiptLines[i], address);
+            }
+            return address;
+        }
+
+        private void StreetCheck(string line, string[] address)
+        {
+            string[] arr = line.Split(" ");
+            for (int i = 0; i < arr.Length; ++i)
+            {
+                foreach (string street in _streetSuffixes)
+                {
+                    if (arr[i] == street)
+                    {
+                        string addr = "";
+                        for (int j = 0; j < i; ++j)
+                        {
+                            addr += arr[j] + " ";
+                        }
+                        addr += arr[i];
+                        address[0] = addr;
+                        return;
+                        
+                    }
+                }
+            }
+        }
+
+        private void AddressCheck(string line, string[] address)
+        {
+            string[] arr = line.Split(" ");
+            int zip = 0;
+            for (int i = 0; i < arr.Length; ++i)
+            {
+                foreach (string state in _stateAbbreviations)
+                {
+                    if (arr[i] == state && arr[i + 1].Length == 5)
+                    {
+                        if (int.TryParse(arr[i + 1], out zip))
+                        {
+                            if(arr[i - 1] != null)
+                            {
+                                address[1] = arr[i - 1];
+                            }
+                            address[2] = state;
+                            address[3] = zip + "";
+                            return;
+                        }
+                    }
+                }
+            }
         }
 
         public string FindReceiptID()
@@ -53,7 +133,7 @@ namespace GroceryProject
                     id = s.Substring(s.IndexOf("ID #") + 4);
                     for(int i = 0; i < id.Length; i++)
                     {
-                        if(id[i] != ' ')
+                        if (id[i] != ' ' && id[i] !=':')
                         {
                             id = id.Substring(i);
                             break;

@@ -80,7 +80,7 @@ namespace GroceryProject
                         Text += ocrResult.ParsedResults[i].ParsedText;
                     }
                     Text = Text.ToUpper();
-                    var charsToRemove = new string[] { "@", ",", ";", "'", "\t", ":" };
+                    var charsToRemove = new string[] { "@", ",", ";", "'", "\t" };
                     foreach (var c in charsToRemove)
                     {
                         Text = Text.Replace(c, " ");
