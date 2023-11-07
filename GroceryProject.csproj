@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="IronOcr" Version="2023.11.35" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
 </Project>

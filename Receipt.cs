@@ -10,10 +10,10 @@ namespace GroceryProject
     {
         public string ID;
         public string StoreName = "NULL";
-        public decimal Total;
-        public decimal SubTotal;
-        public decimal Tax1;
-        public decimal Tax2;
+        public decimal Total = 0;
+        public decimal SubTotal = 0;
+        public decimal Tax1 = 0;
+        public decimal Tax2 = 0;
 
         public List<string[]> PurchasedItems = new List<string[]>();
 

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -25,41 +24,42 @@ namespace GroceryProject
             InitializeComponent();
         }
 
-        public void SelectImage(object sender, RoutedEventArgs e)
+        public async void SelectImage(object sender, RoutedEventArgs e)
         {
-            // Configure open file dialog box
-            var dialog = new Microsoft.Win32.OpenFileDialog();
-            dialog.FileName = "Scan"; // Default file name
-            dialog.DefaultExt = ".jpg"; // Default file extension
-            dialog.Filter = "Image Files(*.jpg; *.jpeg)| *.jpg; *.jpeg;";
 
-            // Show open file dialog box
-            bool? result = dialog.ShowDialog();
-
+            ImageReader reader = new ImageReader();
             ClearText();
-            // Process open file dialog box results
-            if (result == true)
+            reader.OpenImage();
+            /*Task.Run(async () => 
             {
-                // Open document
-                string filename = dialog.FileName;
-                ReceiptReader receiptReader = new();
-                receiptReader.Read(filename, 1);
-                Receipt r = new Receipt(receiptReader);
-                richText.Text = receiptReader.Text;
-                lineCount.Text = receiptReader.ReceiptLines.Length + "";
-                store.Text = r.StoreName;
-                subtotal.Text = r.SubTotal + "";
-                total.Text = r.Total + "";
-                tax1.Text = r.Tax1 + "";
-                tax2.Text = r.Tax2 + "";
-                List<string[]> items = r.PurchasedItems;
-                foreach(string[] item in items)
+                await reader.ReadImage();
+            }).ContinueWith(x =>
+            {
+                this.Dispatcher.Invoke(() =>
                 {
-                    itemsBox.Text += item[0] + "     " + item[1] + "    $" + item[2] + '\n';
-                }
-                itemsBox.Text += items.Count;
-                id.Text = r.ID;
+                    richText.Text = reader.Text;
+                });
+            });*/
+            var task = Task.Run(async delegate {
+                await reader.ReadImage();
+            });
+            await task;
+            richText.Text = reader.Text;
+            ReceiptReader receiptReader = new ReceiptReader(reader);
+            Receipt r = new Receipt(receiptReader);
+            store.Text = r.StoreName;
+            subtotal.Text = r.SubTotal + "";
+            total.Text = r.Total + "";
+            tax1.Text = r.Tax1 + "";
+            tax2.Text = r.Tax2 + "";
+            List<string[]> items = r.PurchasedItems;
+            foreach(string[] item in items)
+            {
+                itemsBox.Text += item[0] + "     " + item[1] + "    $" + item[2] + '\n';
             }
+            itemsBox.Text += items.Count;
+            lineCount.Text = receiptReader.ReceiptLines.Length + "";
+            id.Text = r.ID;
         }
 
         private void ClearText()

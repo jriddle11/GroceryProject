@@ -43,6 +43,10 @@
             "IronOcr": {
               "target": "Package",
               "version": "[2023.11.35, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
             }
           },
           "imports": [

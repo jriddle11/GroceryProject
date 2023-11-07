@@ -80,3 +80,4 @@ C:\Users\Josh\source\repos\GroceryProject\obj\Debug\net5.0-windows\ref\GroceryPr
 C:\Users\Josh\source\repos\GroceryProject\obj\Debug\net5.0-windows\GroceryProject.pdb
 C:\Users\Josh\source\repos\GroceryProject\obj\Debug\net5.0-windows\GroceryProject.genruntimeconfig.cache
 C:\Users\Josh\source\repos\GroceryProject\obj\Debug\net5.0-windows\refint\GroceryProject.dll
+C:\Users\Josh\source\repos\GroceryProject\bin\Debug\net5.0-windows\Newtonsoft.Json.dll

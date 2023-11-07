@@ -21,17 +21,19 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
                 <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
-            <Button Click="SelectImage" Grid.Row="0" Height="40" Width="200">Select Image</Button>
-            <TextBlock x:Name="store" FontSize="20" Grid.Row="1">StoreName</TextBlock>
-            <TextBlock x:Name="lineCount" FontSize="20" Grid.Row="2">LineCount</TextBlock>
-            <TextBlock x:Name="total" FontSize="20" Grid.Row="3">total</TextBlock>
-            <TextBlock x:Name="subtotal" FontSize="20" Grid.Row="4">subtotal</TextBlock>
-            <TextBlock x:Name="tax1" FontSize="20" Grid.Row="5">tax1</TextBlock>
-            <TextBlock x:Name="tax2" FontSize="20" Grid.Row="6">tax2</TextBlock>
-            <TextBlock x:Name="id" FontSize="20" Grid.Row="7">id</TextBlock>
-            <TextBox x:Name="itemsBox" Grid.Row="8"/>
+            <TextBox x:Name="box" FontSize="20" Grid.Row="0"/>
+            <Button Click="SelectImage" Grid.Row="1" Height="40" Width="200">Select Image</Button>
+            <TextBlock x:Name="store" FontSize="20" Grid.Row="2">StoreName</TextBlock>
+            <TextBlock x:Name="lineCount" FontSize="20" Grid.Row="3">LineCount</TextBlock>
+            <TextBlock x:Name="total" FontSize="20" Grid.Row="4">total</TextBlock>
+            <TextBlock x:Name="subtotal" FontSize="20" Grid.Row="5">subtotal</TextBlock>
+            <TextBlock x:Name="tax1" FontSize="20" Grid.Row="6">tax1</TextBlock>
+            <TextBlock x:Name="tax2" FontSize="20" Grid.Row="7">tax2</TextBlock>
+            <TextBlock x:Name="id" FontSize="20" Grid.Row="8">id</TextBlock>
+            <TextBox x:Name="itemsBox" Grid.Row="9"/>
         </Grid>
         <TextBox x:Name="richText" Grid.Column="1"/>
     </Grid>

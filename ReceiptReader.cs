@@ -36,62 +36,11 @@ namespace GroceryProject
         /// The receipt line number where a total, subtotal, tax1 or tax2 was found
         /// </summary>
         private int totalIndex = 0;
-        /// <summary>
-        /// Reads an image file and converts it to text (only .jpg supported currently)
-        /// </summary>
-        /// <param name="pathName">The image to read</param>
-        /// <param name="scanType">The type of scan used. 0: Best for searching numbers. 1: Best for searching letters</param>
-        public void Read(string pathName, int scanType)
+
+        public ReceiptReader(ImageReader reader)
         {
-            IronTesseract IronOcr = new IronTesseract()
-            {
-
-                Language = OcrLanguage.EnglishFast,
-                Configuration = new TesseractConfiguration()
-                {
-                    ReadBarCodes = false,
-                    BlackListCharacters = "`ë|^®-:¥!~»¢;[]?/\\(){}@<>°",
-                }
-            };
-            ConvertJPGToText(pathName, IronOcr, scanType);
-
-        }
-        /// <summary>
-        /// Converts a .jpg file to text
-        /// </summary>
-        /// <param name="pathName">A .jpg file</param>
-        /// <param name="IronOcr">An IronTesseract object</param>
-        /// <param name="scanType">The scan type, 0 or 1</param>
-        private void ConvertJPGToText(string pathName, IronTesseract IronOcr, int scanType)
-        {
-            using (var input = new OcrInput(pathName))
-            {
-                if (scanType == 0)
-                {
-                    input.Deskew();
-                    input.Sharpen();
-                    input.Dilate();
-                    input.Binarize();
-                    input.Open();
-                    var Result = IronOcr.Read(input);
-                    Text = Result.Text.ToUpper();
-                    ReceiptLines = Text.Split("\n");
-                }
-                else
-                {
-                    IronOcr.Language = OcrLanguage.EnglishBest;
-                    input.Scale(200);
-                    input.Dilate();
-                    input.Binarize();
-                    input.Contrast();
-                    input.Sharpen();
-                    input.Open();
-
-                    var Result = IronOcr.Read(input);
-                    Text = Result.Text.ToUpper();
-                    ReceiptLines = Text.Split("\n");
-                }
-            }
+            Text = reader.Text;
+            ReceiptLines = Text.Split('\n');
         }
 
         public string FindReceiptID()
@@ -102,6 +51,14 @@ namespace GroceryProject
                 if (s.Contains("ID #"))
                 {
                     id = s.Substring(s.IndexOf("ID #") + 4);
+                    for(int i = 0; i < id.Length; i++)
+                    {
+                        if(id[i] != ' ')
+                        {
+                            id = id.Substring(i);
+                            break;
+                        }
+                    }
                     break;
                 }
             }
@@ -139,7 +96,7 @@ namespace GroceryProject
             List<string[]> items = new List<string[]>();
             foreach(string line in ReceiptLines)
             {
-                string[] arr = line.Split(' ');
+                string[] arr = line.Split(" ");
                 if(arr.Length > 3)
                 {
                     CheckAndGetItem(arr, items);
@@ -152,10 +109,11 @@ namespace GroceryProject
         {
             for (int i = 1; i < line.Length - 1; i++)
             {
-                try
+
+                ulong code = 0;
+                if (ulong.TryParse(line[i], out code))
                 {
-                    ulong code = ulong.Parse(line[i]);
-                    if (code > 100000)
+                    if (code > 1000000 && !line.Contains("DEBIT") && !line.Contains("TERMINAL"))
                     {
                         string[] item = new string[3];
                         item[1] = line[i];
@@ -183,14 +141,9 @@ namespace GroceryProject
                         }
 
                         list.Add(item);
-
-
                     }
                 }
-                catch
-                {
 
-                }
             }
         }
 
@@ -240,15 +193,22 @@ namespace GroceryProject
         }
         private decimal SharpenAmount(string s)
         {
-            string[] line = s.Split(' ');
+            string[] line = s.Split(" ");
             decimal amount = 0;
-            try
+            for(int i = 0; i < line.Length; i++)
             {
-                amount = decimal.Parse(line[line.Length - 1]);
-                
-            }
-            catch{
-
+                if (line[i].Contains(".") && !line[i + 1].Contains("%"))
+                {
+                    foreach(char c in line[i])
+                    {
+                        if (Char.IsLetter(c))
+                        {
+                            line[i].Replace(c, ' ');
+                        }
+                    }
+                    decimal.TryParse(line[i], out amount);
+                    break;
+                }
             }
             return amount;
 
