@@ -132,7 +132,7 @@ namespace GroceryProject
                     id = s.Substring(s.IndexOf("ID #") + 4);
                     for(int i = 0; i < id.Length; i++)
                     {
-                        if (id[i] != ' ' && id[i] !=':')
+                        if (Char.IsLetter(id[i]) || Char.IsDigit(id[i]))
                         {
                             id = id.Substring(i);
                             break;
@@ -143,6 +143,120 @@ namespace GroceryProject
             }
             return id;
         }
+
+        public string FindPaymentType()
+        {
+            foreach (string s in ReceiptLines)
+            {
+                if (s.Contains("DEBIT"))
+                {
+                    return "DEBIT";
+                }
+                else if (s.Contains("CREDIT"))
+                {
+                    return "CREDIT";
+                }
+            }
+            return "CASH";
+        }
+
+        public string FindPhoneNum()
+        {
+            
+            foreach (string s in ReceiptLines)
+            {
+                if (s.Contains("-"))
+                {
+                    int count = 0;
+                    foreach(char c in s)
+                    {
+                        if (c == '-')
+                        {
+                            ++count;
+                        }
+                           
+                    }
+                    if(count == 2)
+                    {
+                        return s.Substring(s.IndexOf("-") - 3, s.IndexOf("-") + 9);
+                    }
+                }
+            }
+            return "NULL";
+        }
+
+        public string FindDate()
+        {
+
+            foreach (string s in ReceiptLines)
+            {
+                if (s.Contains("/"))
+                {
+                    int count = 0;
+                    foreach (char c in s)
+                    {
+                        if (c == '/')
+                        {
+                            ++count;
+                        }
+
+                    }
+                    if (count == 2)
+                    {
+                        return s.Substring(s.IndexOf("/") - 2, s.IndexOf("/") + 6);
+                    }
+                }
+            }
+            return "NULL";
+        }
+
+        public string FindTime()
+        {
+
+            foreach (string s in ReceiptLines)
+            {
+                if (s.Contains(":"))
+                {
+                    int count = 0;
+                    foreach (char c in s)
+                    {
+                        if (c == ':')
+                        {
+                            ++count;
+                        }
+
+                    }
+                    if (count == 2 && s.Length > 8)
+                    {
+                        return s.Substring(s.IndexOf(":") - 2);
+                    }
+                }
+            }
+            return "NULL";
+        }
+
+        public string FindTerminalNum()
+        {
+            string id = "NULL";
+            foreach (string s in ReceiptLines)
+            {
+                if (s.Contains("TERMINAL #"))
+                {
+                    id = s.Substring(s.IndexOf("TERMINAL #") + 10);
+                    for (int i = 0; i < id.Length; i++)
+                    {
+                        if (Char.IsLetter(id[i]) || Char.IsDigit(id[i]))
+                        {
+                            id = id.Substring(i);
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            return id;
+        }
+
         public string FindStoreName()
         {
             string storeName = "NULL";
@@ -309,7 +423,8 @@ namespace GroceryProject
         {
             if(s == "NULL") { return "NULL"; }
             if(storeIndex < 4) { return "Walmart"; }
-            else { return "Target"; }
+            else if(storeIndex < 8) { return "Target"; }
+            return "NUlL";
         }
     }
 }

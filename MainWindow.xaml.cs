@@ -30,16 +30,6 @@ namespace GroceryProject
             ImageReader reader = new ImageReader();
             ClearText();
             reader.OpenImage();
-            /*Task.Run(async () => 
-            {
-                await reader.ReadImage();
-            }).ContinueWith(x =>
-            {
-                this.Dispatcher.Invoke(() =>
-                {
-                    richText.Text = reader.Text;
-                });
-            });*/
             var task = Task.Run(async delegate {
                 await reader.ReadImage();
             });
@@ -59,7 +49,7 @@ namespace GroceryProject
             }
             itemsBox.Text += items.Count;
             lineCount.Text = receiptReader.ReceiptLines.Length + "";
-            id.Text = r.ID;
+            id.Text = r.datetemp;
             box.Text = r.Street + " " + r.City + " " + r.State + " " + r.PostalCode;
         }
 
