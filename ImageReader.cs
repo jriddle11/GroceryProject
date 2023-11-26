@@ -51,7 +51,7 @@ namespace GroceryProject
 
 
                 MultipartFormDataContent form = new MultipartFormDataContent();
-                form.Add(new StringContent("K87283460488957"), "apikey"); //Added api key in form data
+                form.Add(new StringContent("K87283460488957"), "apikey");
                 form.Add(new StringContent("eng"), "language");
 
                 form.Add(new StringContent("2"), "ocrengine");

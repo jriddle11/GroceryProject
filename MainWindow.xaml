@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GroceryProject"
+        xmlns:ScottPlot="clr-namespace:ScottPlot;assembly=ScottPlot.WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
     <Grid>
@@ -24,8 +25,8 @@
                 <RowDefinition/>
                 <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
-            <TextBox x:Name="box" FontSize="20" Grid.Row="0"/>
-            <Button Click="SelectImage" Grid.Row="1" Height="40" Width="200">Select Image</Button>
+            <Button Click="SelectImage" Grid.Row="0" Height="40" Width="200">Upload A Receipt</Button>
+            <TextBox x:Name="box" FontSize="20" Grid.Row="1"/>
             <TextBlock x:Name="store" FontSize="20" Grid.Row="2">StoreName</TextBlock>
             <TextBlock x:Name="lineCount" FontSize="20" Grid.Row="3">LineCount</TextBlock>
             <TextBlock x:Name="total" FontSize="20" Grid.Row="4">total</TextBlock>
@@ -35,6 +36,16 @@
             <TextBlock x:Name="id" FontSize="20" Grid.Row="8">id</TextBlock>
             <TextBox x:Name="itemsBox" Grid.Row="9"/>
         </Grid>
-        <TextBox x:Name="richText" Grid.Column="1"/>
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBox x:Name="richText" Grid.Row="1"/>
+            <ScottPlot:WpfPlot x:Name="CostOverTime" />
+        </Grid>
     </Grid>
 </Window>

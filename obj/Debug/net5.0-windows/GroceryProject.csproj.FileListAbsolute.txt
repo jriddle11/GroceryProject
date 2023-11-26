@@ -4,7 +4,6 @@ C:\Users\Josh\source\repos\GroceryProject\bin\Debug\net5.0-windows\GroceryProjec
 C:\Users\Josh\source\repos\GroceryProject\bin\Debug\net5.0-windows\GroceryProject.runtimeconfig.dev.json
 C:\Users\Josh\source\repos\GroceryProject\bin\Debug\net5.0-windows\GroceryProject.dll
 C:\Users\Josh\source\repos\GroceryProject\bin\Debug\net5.0-windows\GroceryProject.pdb
-C:\Users\Josh\source\repos\GroceryProject\bin\Debug\net5.0-windows\System.Drawing.Common.dll
 C:\Users\Josh\source\repos\GroceryProject\obj\Debug\net5.0-windows\GroceryProject.csproj.AssemblyReference.cache
 C:\Users\Josh\source\repos\GroceryProject\obj\Debug\net5.0-windows\MainWindow.g.cs
 C:\Users\Josh\source\repos\GroceryProject\obj\Debug\net5.0-windows\App.g.cs
@@ -23,3 +22,5 @@ C:\Users\Josh\source\repos\GroceryProject\obj\Debug\net5.0-windows\GroceryProjec
 C:\Users\Josh\source\repos\GroceryProject\obj\Debug\net5.0-windows\GroceryProject.genruntimeconfig.cache
 C:\Users\Josh\source\repos\GroceryProject\obj\Debug\net5.0-windows\refint\GroceryProject.dll
 C:\Users\Josh\source\repos\GroceryProject\bin\Debug\net5.0-windows\Newtonsoft.Json.dll
+C:\Users\Josh\source\repos\GroceryProject\bin\Debug\net5.0-windows\ScottPlot.dll
+C:\Users\Josh\source\repos\GroceryProject\bin\Debug\net5.0-windows\ScottPlot.WPF.dll

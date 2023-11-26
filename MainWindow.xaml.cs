@@ -23,7 +23,14 @@ namespace GroceryProject
         public MainWindow()
         {
             InitializeComponent();
-        }
+            
+
+            double[] time = new double[] {new DateTime(2023, 5, 1).ToOADate(), new DateTime(2023, 5, 8).ToOADate(), new DateTime(2023, 5, 15).ToOADate(), new DateTime(2023, 5, 22).ToOADate() };
+            double[] price = new double[] { 120, 150, 222.3, 180.5 };
+            CostOverTime.Plot.XAxis.DateTimeFormat(true);
+            CostOverTime.Plot.AddScatter(time, price);
+            CostOverTime.Refresh();
+        }  
 
         public async void SelectImage(object sender, RoutedEventArgs e)
         {

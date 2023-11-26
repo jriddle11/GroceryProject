@@ -29,12 +29,17 @@ namespace GroceryProject
         
 
         public List<PurchasedItem> PurchasedItems = new();
-
+        /// <summary>
+        /// Empty Constructor for the Receipt class
+        /// </summary>
         public Receipt()
         {
 
         }
-
+        /// <summary>
+        /// Constructor that takes in a receipt reader and fills the values of the receipt
+        /// </summary>
+        /// <param name="reader">A receipt reader to read from</param>
         public Receipt(ReceiptReader reader)
         {
             StoreName = reader.FindStoreName();

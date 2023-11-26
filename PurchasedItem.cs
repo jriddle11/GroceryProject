@@ -8,8 +8,17 @@ namespace GroceryProject
 {
     public class PurchasedItem
     {
+        /// <summary>
+        /// The Name of the item
+        /// </summary>
         public string Name;
+        /// <summary>
+        /// The Code of the item
+        /// </summary>
         public string Code;
+        /// <summary>
+        /// The Price of the item
+        /// </summary>
         public decimal Price;
     }
 }

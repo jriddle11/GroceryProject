@@ -44,9 +44,9 @@
               "target": "Package",
               "version": "[13.0.3, )"
             },
-            "System.Drawing.Common": {
+            "ScottPlot.WPF": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[4.1.68, )"
             }
           },
           "imports": [
