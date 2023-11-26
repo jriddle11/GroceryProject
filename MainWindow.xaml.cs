@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 
 namespace GroceryProject
 {
@@ -36,21 +37,24 @@ namespace GroceryProject
             await task;
             richText.Text = reader.Text;
             ReceiptReader receiptReader = new ReceiptReader(reader);
-            Receipt r = new Receipt(receiptReader);
+            Receipt fresh = new Receipt(receiptReader);
+            string json = JsonConvert.SerializeObject(fresh);
+            Receipt r = JsonConvert.DeserializeObject<Receipt>(json);
             store.Text = r.StoreName;
             subtotal.Text = r.SubTotal + "";
             total.Text = r.Total + "";
             tax1.Text = r.Tax1 + "";
             tax2.Text = r.Tax2 + "";
-            List<string[]> items = r.PurchasedItems;
-            foreach(string[] item in items)
+            List<PurchasedItem> items = r.PurchasedItems;
+            foreach(PurchasedItem item in items)
             {
-                itemsBox.Text += item[0] + "     " + item[1] + "    $" + item[2] + '\n';
+                itemsBox.Text += item.Name + "     " + item.Code + "    $" + item.Price + '\n';
             }
             itemsBox.Text += items.Count;
             lineCount.Text = receiptReader.ReceiptLines.Length + "";
             id.Text = r.Date;
             box.Text = r.Street + " " + r.City + " " + r.State + " " + r.PostalCode;
+
         }
 
         private void ClearText()

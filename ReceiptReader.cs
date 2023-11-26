@@ -22,19 +22,20 @@ namespace GroceryProject
         /// <summary>
         /// Key terms to search the receipt text for store names
         /// </summary>
-        private string[] supportedStoreNames = { "WALMART", "ALMART", "WLMART", "WLMRT", "TARGET", "ARGET", "TRGET", "TARGE" };
+        private string[] _supportedStoreNames = { "WALMART", "TARGET", "WALGREENS", "CVS", "BEST BUY", "HOME DEPOT", "LOWE'S", "COSTCO", "KROGER", "SAFEWAY",
+        "STARBUCKS", "MCDONALD'S", "SUBWAY", "DOLLAR GENERAL", "FAMILY DOLLAR", "7-ELEVEN", "DUNKIN'", "PETSMART", "PETCO", "BED BATH & BEYOND",
+        "WHOLE FOODS MARKET", "TRADER JOE'S", "H-E-B", "PUBLIX", "WAWA", "RITE AID", "ALDI", "GAMESTOP", "CHICK-FIL-A", "PANERA BREAD",
+        "AT&T", "VERIZON", "SPRINT", "T-MOBILE", "APPLE STORE", "MICROSOFT STORE", "NIKE", "ADIDAS", "GAP", "OLD NAVY",
+        "BATH & BODY WORKS", "ULTA BEAUTY", "SEPHORA", "J.CREW", "FOREVER 21", "ZARA", "LULULEMON", "AMERICAN EAGLE", "URBAN OUTFITTERS"
+        };
         /// <summary>
         /// Key terms to search the receipt text for the subtotal, total, tax1 and tax2
         /// </summary>
-        private string[] totalKeyWords = { "SUBTOTAL", "SBTOTAL", "UBTOTAL", "SUBTTAL", "SUBTOTA", "TOTAL", "0TAL", "OTAL", "TAX" };
-        /// <summary>
-        /// The receipt line number where the store name was found
-        /// </summary>
-        private int storeIndex = 0;
+        private string[] _totalKeyWords = { "SUBTOTAL", "SBTOTAL", "UBTOTAL", "SUBTTAL", "SUBTOTA", "TOTAL", "0TAL", "OTAL", "TAX" };
         /// <summary>
         /// The receipt line number where a total, subtotal, tax1 or tax2 was found
         /// </summary>
-        private int totalIndex = 0;
+        private int _totalIndex = 0;
         /// <summary>
         /// String array of all state abreviations
         /// </summary>
@@ -45,7 +46,9 @@ namespace GroceryProject
         "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
         "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"
         };
-
+        /// <summary>
+        /// Street suffixes used to find the address
+        /// </summary>
         private string[] _streetSuffixes = {
         "AVENUE", "AVE", "BOULEVARD", "BLVD", "CIRCLE", "CIR", "COURT", "CT", "DRIVE", "DR",
         "LANE", "LN", "PLACE", "PL", "ROAD", "RD", "STREET", "ST", "TERRACE", "TER",
@@ -56,13 +59,19 @@ namespace GroceryProject
         "MD", "HARBOR", "HBR", "GLEN", "LN", "RUN", "PIKE", "PK", "CANYON", "DIVIDE", "DV",
         "MOUNT", "MT", "TRAIL", "TRL",
         };
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="reader">An Image reader with its suplied text</param>
         public ReceiptReader(ImageReader reader)
         {
             Text = reader.Text;
             ReceiptLines = Text.Split('\n');
         }
-
+        /// <summary>
+        /// Finds the address on the receipt
+        /// </summary>
+        /// <returns>A string array containing the city, state, street, and postal code</returns>
         public string[] FindAddress()
         {
             string[] address = new string[4];
@@ -73,7 +82,11 @@ namespace GroceryProject
             }
             return address;
         }
-
+        /// <summary>
+        /// Searches for the street address stores it in the address array
+        /// </summary>
+        /// <param name="line">The current line of the receipt</param>
+        /// <param name="address">An array to store the street address</param>
         private void StreetCheck(string line, string[] address)
         {
             string[] arr = line.Split(" ");
@@ -96,7 +109,11 @@ namespace GroceryProject
                 }
             }
         }
-
+        /// <summary>
+        /// Searches for the state and postal code of the address and stores it in the address array
+        /// </summary>
+        /// <param name="line">The current line of the receipt</param>
+        /// <param name="address">The address array to store the result</param>
         private void AddressCheck(string line, string[] address)
         {
             string[] arr = line.Split(" ");
@@ -121,7 +138,10 @@ namespace GroceryProject
                 }
             }
         }
-
+        /// <summary>
+        /// Searches for the ID of the current receipt
+        /// </summary>
+        /// <returns>The receipt ID as a string</returns>
         public string FindReceiptID()
         {
             string id = "NULL";
@@ -143,7 +163,10 @@ namespace GroceryProject
             }
             return id;
         }
-
+        /// <summary>
+        /// Finds the method of payment for this receipt
+        /// </summary>
+        /// <returns>The payment type</returns>
         public string FindPaymentType()
         {
             foreach (string s in ReceiptLines)
@@ -159,7 +182,10 @@ namespace GroceryProject
             }
             return "CASH";
         }
-
+        /// <summary>
+        /// Searches for the phone number of the store on the receipt
+        /// </summary>
+        /// <returns>A phone number as a string</returns>
         public string FindPhoneNum()
         {
             
@@ -184,7 +210,10 @@ namespace GroceryProject
             }
             return "NULL";
         }
-
+        /// <summary>
+        /// Finds the date of this receipt
+        /// </summary>
+        /// <returns>A date as a string</returns>
         public string FindDate()
         {
 
@@ -209,7 +238,10 @@ namespace GroceryProject
             }
             return "NULL";
         }
-
+        /// <summary>
+        /// Finds the time this receipt was made
+        /// </summary>
+        /// <returns>A string of the time</returns>
         public string FindTime()
         {
 
@@ -234,43 +266,30 @@ namespace GroceryProject
             }
             return "NULL";
         }
-
-        public string FindTerminalNum()
-        {
-            string id = "NULL";
-            foreach (string s in ReceiptLines)
-            {
-                if (s.Contains("TERMINAL #"))
-                {
-                    id = s.Substring(s.IndexOf("TERMINAL #") + 10);
-                    for (int i = 0; i < id.Length; i++)
-                    {
-                        if (Char.IsLetter(id[i]) || Char.IsDigit(id[i]))
-                        {
-                            id = id.Substring(i);
-                            break;
-                        }
-                    }
-                    break;
-                }
-            }
-            return id;
-        }
-
+        /// <summary>
+        /// Finds the store name on this receipt
+        /// </summary>
+        /// <returns>The store name</returns>
         public string FindStoreName()
         {
             string storeName = "NULL";
             foreach(string s in ReceiptLines)
             {
-                if (StoreFound(s))
+                for (int i = 0; i < _supportedStoreNames.Length; i++)
                 {
-                    storeName = SharpenStoreName(s);
-                    break;
+                    if (s.Contains(_supportedStoreNames[i]))
+                    {
+                        storeName = _supportedStoreNames[i];
+                        break;
+                    }
                 }
             }
             return storeName;
         }
-
+        /// <summary>
+        /// Finds the subtotal, total, tax 1 and tax 2 of this receipt
+        /// </summary>
+        /// <returns>A decimal array containing the cost details</returns>
         public decimal[] FindTaxAndTotals()
         {
             decimal[] totals = { 0m, 0m, 0m, 0m};
@@ -283,10 +302,13 @@ namespace GroceryProject
             }
             return totals;
         }
-
-        public List<string[]> FindItems()
+        /// <summary>
+        /// Finds the purchased items on the receipt
+        /// </summary>
+        /// <returns>A list of PurchasedItems</returns>
+        public List<PurchasedItem> FindItems()
         {
-            List<string[]> items = new List<string[]>();
+            List<PurchasedItem> items = new();
             foreach(string line in ReceiptLines)
             {
                 string[] arr = line.Split(" ");
@@ -297,8 +319,12 @@ namespace GroceryProject
             }
             return items;
         }
-
-        private void CheckAndGetItem(string[] line, List<string[]> list)
+        /// <summary>
+        /// Checks and retrieves an item from a line on the receipt
+        /// </summary>
+        /// <param name="line">The current line of the receipt</param>
+        /// <param name="list">The list of purchased items</param>
+        private void CheckAndGetItem(string[] line, List<PurchasedItem> list)
         {
             for (int i = 1; i < line.Length - 1; i++)
             {
@@ -308,14 +334,14 @@ namespace GroceryProject
                 {
                     if (code > 1000000 && !line.Contains("DEBIT") && !line.Contains("TERMINAL"))
                     {
-                        string[] item = new string[3];
-                        item[1] = line[i];
+                        PurchasedItem item = new();
+                        item.Code = line[i];
                         string name = "";
                         for (int j = 0; j < i; j++)
                         {
                             name = name + line[j] + " ";
                         }
-                        item[0] = name;
+                        item.Name = name;
                         for (int y = i + 1; y < line.Length; ++y)
                         {
                             if (line[y].Length > 3)
@@ -323,7 +349,7 @@ namespace GroceryProject
                                 try
                                 {
                                     decimal price = decimal.Parse(line[y]);
-                                    item[2] = price + "";
+                                    item.Price = price;
 
                                 }
                                 catch
@@ -339,23 +365,31 @@ namespace GroceryProject
 
             }
         }
-
+        /// <summary>
+        /// Checks if a line contains a total, subtotal or tax value
+        /// </summary>
+        /// <param name="s">The current line of the receipt</param>
+        /// <returns>True if a cost is found, false otherwise</returns>
         private bool CheckIfTotalOrTax(string s)
         {
-            for(int i = 0; i < totalKeyWords.Length; i++)
+            for(int i = 0; i < _totalKeyWords.Length; i++)
             {
-                if (s.Contains(totalKeyWords[i]))
+                if (s.Contains(_totalKeyWords[i]))
                 {
-                    totalIndex = i;
+                    _totalIndex = i;
                     return true;
                 }
             }
             return false;
         }
-
+        /// <summary>
+        /// retrieves a subtotal, total, or tax and inserts it into the totals array
+        /// </summary>
+        /// <param name="s">The string to sharpen</param>
+        /// <param name="totals">The array of totals</param>
         private void SharpenTotalAndTaxes(string s, decimal[] totals)
         {
-            if(totalIndex < 5)
+            if(_totalIndex < 5)
             {
                 decimal subtotal = SharpenAmount(s);
                 if(totals[0] < subtotal)
@@ -363,7 +397,7 @@ namespace GroceryProject
                     totals[0] = subtotal;
                 }
             }
-            else if(totalIndex < 8)
+            else if(_totalIndex < 8)
             {
                 decimal total = SharpenAmount(s);
                 if (totals[1] < total)
@@ -384,6 +418,11 @@ namespace GroceryProject
                 }
             }
         }
+        /// <summary>
+        /// cleans up the text to retrieve a subtotal, total, or tax
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         private decimal SharpenAmount(string s)
         {
             string[] line = s.Split(" ");
@@ -405,26 +444,6 @@ namespace GroceryProject
             }
             return amount;
 
-        }
-        private bool StoreFound(string s)
-        {
-            for(int i = 0; i < supportedStoreNames.Length; i++)
-            {
-                if (s.Contains(supportedStoreNames[i]))
-                {
-                    storeIndex = i;
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private string SharpenStoreName(string s)
-        {
-            if(s == "NULL") { return "NULL"; }
-            if(storeIndex < 4) { return "Walmart"; }
-            else if(storeIndex < 8) { return "Target"; }
-            return "NUlL";
         }
     }
 }
