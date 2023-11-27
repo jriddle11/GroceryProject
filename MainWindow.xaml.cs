@@ -30,7 +30,17 @@ namespace GroceryProject
             CostOverTime.Plot.XAxis.DateTimeFormat(true);
             CostOverTime.Plot.AddScatter(time, price);
             CostOverTime.Refresh();
+            UpdateLeaderboard(new string[] { "Monster", "Broc", "Chicken", "Eggs" }, new decimal[] { 200.32m, 119.2m, 115m, 102.23m });
         }  
+
+        public void UpdateLeaderboard(string[] names, decimal[] totals)
+        {
+            leaderboard.Text = "Item Purchase Leaderboard\n";
+            for(int i = 0; i < names.Length; i++)
+            {
+                leaderboard.Text += (i + 1) + ". " + names[i] + " $" + totals[i] + "\n";
+            }
+        }
 
         public async void SelectImage(object sender, RoutedEventArgs e)
         {
@@ -59,7 +69,7 @@ namespace GroceryProject
             }
             itemsBox.Text += items.Count;
             lineCount.Text = receiptReader.ReceiptLines.Length + "";
-            id.Text = r.Date;
+            id.Text = r.ReceiptDate.ToString();
             box.Text = r.Street + " " + r.City + " " + r.State + " " + r.PostalCode;
 
         }

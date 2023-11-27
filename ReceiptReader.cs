@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace GroceryProject
 {
@@ -67,6 +68,20 @@ namespace GroceryProject
         {
             Text = reader.Text;
             ReceiptLines = Text.Split('\n');
+        }
+        public DateTime FindReceiptDate()
+        {
+            string d = FindDate();
+            string t = FindTime();
+            try
+            {
+                return DateTime.ParseExact(d + " " + t, "MM/dd/yy HH:mm", null);
+            }
+            catch(Exception e)
+            {
+                return DateTime.Now;
+            }
+            
         }
         /// <summary>
         /// Finds the address on the receipt
@@ -260,7 +275,7 @@ namespace GroceryProject
                     }
                     if (count == 2 && s.Length > 8)
                     {
-                        return s.Substring(s.IndexOf(":") - 2);
+                        return s.Substring(s.IndexOf(":") - 2, 5);
                     }
                 }
             }

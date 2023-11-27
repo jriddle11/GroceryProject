@@ -24,8 +24,7 @@ namespace GroceryProject
         public string PaymentType = "NULL";
         public string PhoneNumber = "NULL";
 
-        public string Date = "NULL";
-        public string Time = "NULL";
+        public DateTime ReceiptDate;
         
 
         public List<PurchasedItem> PurchasedItems = new();
@@ -45,8 +44,7 @@ namespace GroceryProject
             StoreName = reader.FindStoreName();
             PaymentType = reader.FindPaymentType();
             PhoneNumber = reader.FindPhoneNum();
-            Date = reader.FindDate();
-            Time = reader.FindTime();
+            ReceiptDate = reader.FindReceiptDate();
             decimal[] totals = reader.FindTaxAndTotals();
             SubTotal = totals[0];
             Total = totals[1];
