@@ -61,8 +61,8 @@
                 <BitmapImage DecodePixelWidth="400" UriSource="/Images/ProfilePic.png" />
             </Image.Source>
         </Image>
-        <Border BorderBrush="Black" CornerRadius="20" BorderThickness="2" Margin="10" Grid.Column="1">
-            <Grid Margin="5">
+        <Border BorderBrush="LightGray" CornerRadius="20" BorderThickness="2" Margin="10" Grid.Column="1">
+            <Grid Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>

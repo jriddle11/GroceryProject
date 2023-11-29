@@ -344,24 +344,21 @@ namespace GroceryProject
         }
         private List<PurchasedItem> QuantityCheck(List<PurchasedItem> items)
         {
-            Dictionary<PurchasedItem, int> dict = new Dictionary<PurchasedItem, int>();
+            List<PurchasedItem> list = new List<PurchasedItem>();
             foreach(PurchasedItem item in items)
             {
-                if (dict.ContainsKey(item))
+                if (list.Contains(item))
                 {
-                    dict[item]++;
+                    var temp = list.Find(x => x.Name == item.Name);
+                    temp.Quantity++;
                 }
                 else
                 {
-                    dict.Add(item, 1);
+                    item.Quantity = 1;
+                    list.Add(item);
                 }
             }
-            List<PurchasedItem> list = new List<PurchasedItem>();
-            foreach(PurchasedItem d in dict.Keys)
-            {
-                d.Quantity = dict[d];
-                list.Add(d);
-            }
+            
             return list;
 
         }

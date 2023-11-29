@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <None Remove="Images\ProfilePic.png" />
+    <None Remove="Images\ProfilePicBlack.png" />
+    <None Remove="Images\ProfilePicWhite.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,6 +20,8 @@
 
   <ItemGroup>
     <Resource Include="Images\ProfilePic.png" />
+    <Resource Include="Images\ProfilePicBlack.png" />
+    <Resource Include="Images\ProfilePicWhite.png" />
   </ItemGroup>
 
 </Project>

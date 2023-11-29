@@ -43,7 +43,7 @@
 
         <!--Side Menu Button design -->
         <Style x:Key="MenuButtons" TargetType="{x:Type Button}">
-            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="FontSize" Value="12"/>
             <Setter Property="BorderBrush">
                 <Setter.Value>
                     <SolidColorBrush Color="White" Opacity="0"/>
@@ -52,7 +52,7 @@
             <Setter Property="BorderThickness" Value="1.5"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderBrush" Value="#f5f6f7"/>
+                    <Setter Property="BorderBrush" Value="Black"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -78,11 +78,12 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="8*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             
             <!--Side Menu Buttons-->
-            <Button Style="{StaticResource MenuButtons}" x:Name="AccountButton" FontWeight="Bold" FontFamily="Georgia" Grid.Row="0" Height="40" Grid.Column="0" Click="AccountClick" Background="#FFAFC8E2" Content="Account">
+            <Button Style="{StaticResource MenuButtons}" x:Name="AccountButton" FontWeight="Bold" FontFamily="Georgia" Grid.Row="0" Height="70" Grid.Column="0" Click="AccountClick" Background="#FFAFC8E2">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
@@ -90,39 +91,54 @@
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
+                <Image Width="70" Height="70" Margin="-7 0 0 0">
+                    <Image.Source>
+                        <BitmapImage DecodePixelWidth="70" UriSource="/Images/ProfilePicBlack.png" />
+                    </Image.Source>
+                </Image>
             </Button>
-            <Button Style="{StaticResource MenuButtons}" x:Name="ReceiptButton" FontWeight="Bold" FontFamily="Georgia" Grid.Row="1" Height="40" Grid.Column="0" Click="ReceiptClick" Background="#FFAFC8E2" Content="Receipts">
+            <Button Style="{StaticResource MenuButtons}" x:Name="ReceiptButton" FontWeight="Bold" FontFamily="Georgia" Grid.Row="1" Height="70" Grid.Column="0" Click="ReceiptClick" Background="#FFAFC8E2" Content="Receipts">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                            <Label HorizontalAlignment="Center" Content="{TemplateBinding Content}"/>
+                            <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="70" Width="70" Content="{TemplateBinding Content}"/>
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Button Style="{StaticResource MenuButtons}" x:Name="ThreeButton" FontWeight="Bold" FontFamily="Georgia" Grid.Row="2" Height="40" Grid.Column="0" Click="ThreeClick" Background="#FFAFC8E2" Content="Button3">
+            <Button Style="{StaticResource MenuButtons}" x:Name="ThreeButton" FontWeight="Bold" FontFamily="Georgia" Grid.Row="2" Height="70" Grid.Column="0" Click="ThreeClick" Background="#FFAFC8E2" Content="Graphs">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                            <Label HorizontalAlignment="Center" Content="{TemplateBinding Content}"/>
+                            <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="{TemplateBinding Content}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+                
+            </Button>
+            <Button Style="{StaticResource MenuButtons}" x:Name="Ranks" FontWeight="Bold" FontFamily="Georgia" Grid.Row="3" Height="70" Grid.Column="0" Click="RankClick" Background="#FFAFC8E2" Content="Ranks">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <Label Height="70" Width="70" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="{TemplateBinding Content}"/>
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Button Style="{StaticResource MenuButtons}" x:Name="Ranks" FontWeight="Bold" FontFamily="Georgia" Grid.Row="3" Height="40" Grid.Column="0" Click="RankClick" Background="#FFAFC8E2" Content="Rank">
+            <Button Style="{StaticResource MenuButtons}" x:Name="LogoutButton" FontWeight="Bold" FontFamily="Georgia" Grid.Row="4" Height="70" Grid.Column="0" Click="LogoutClick" Background="#FFAFC8E2" Content="Logout">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                            <Label HorizontalAlignment="Center" Content="{TemplateBinding Content}"/>
+                            <Label Height="70" Width="70" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="{TemplateBinding Content}"/>
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Button Style="{StaticResource MenuButtons}" x:Name="LogoutButton" FontWeight="Bold" FontFamily="Georgia" Grid.Row="4" Height="40" Grid.Column="0" Click="LogoutClick" Background="#FFAFC8E2" Content="Logout">
+            <Button Style="{StaticResource MenuButtons}" x:Name="Admin" FontWeight="Bold" FontFamily="Georgia" Grid.Row="5" Height="70" Grid.Column="0" Click="RankClick" Background="#FFAFC8E2" Content="Admin">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                            <Label HorizontalAlignment="Center" Content="{TemplateBinding Content}"/>
+                            <Label Height="70" Width="70" Foreground="DarkRed" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="{TemplateBinding Content}"/>
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
