@@ -182,20 +182,20 @@ namespace GroceryProject
         /// Finds the method of payment for this receipt
         /// </summary>
         /// <returns>The payment type</returns>
-        public string FindPaymentType()
+        public PaymentMethod FindPaymentType()
         {
             foreach (string s in ReceiptLines)
             {
                 if (s.Contains("DEBIT"))
                 {
-                    return "DEBIT";
+                    return PaymentMethod.Debit;
                 }
                 else if (s.Contains("CREDIT"))
                 {
-                    return "CREDIT";
+                    return PaymentMethod.Credit;
                 }
             }
-            return "CASH";
+            return PaymentMethod.Cash;
         }
         /// <summary>
         /// Searches for the phone number of the store on the receipt

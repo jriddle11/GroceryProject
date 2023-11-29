@@ -21,7 +21,7 @@ namespace GroceryProject
         public decimal Tax1 = 0;
         public decimal Tax2 = 0;
 
-        public string PaymentType = "NULL";
+        public PaymentMethod PaymentType;
         public string PhoneNumber = "NULL";
 
         public DateTime ReceiptDate;
@@ -58,5 +58,9 @@ namespace GroceryProject
             State = addr[2];
             int.TryParse(addr[3], out PostalCode);
         }
+    }
+
+    public enum PaymentMethod { 
+        Cash, Credit, Debit
     }
 }
