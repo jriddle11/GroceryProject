@@ -11,7 +11,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Newtonsoft.Json;
+//graph bits
+using OxyPlot;
+using OxyPlot.Series;
 
 namespace GroceryProject
 {
@@ -23,87 +25,96 @@ namespace GroceryProject
         public MainWindow()
         {
             InitializeComponent();
+
+        }
+
+        /// <summary>
+        /// hides all tabs
+        /// </summary>
+        public void HideAllTabs()
+        {
+            //add all tabs here
+            ReciptCtrl.Visibility = Visibility.Collapsed;
+            LoginCtrl.Visibility = Visibility.Collapsed;
             
 
-            double[] time = new double[] {new DateTime(2023, 5, 1).ToOADate(), new DateTime(2023, 5, 8).ToOADate(), new DateTime(2023, 5, 15).ToOADate(), new DateTime(2023, 5, 22).ToOADate() };
-            double[] price = new double[] { 120, 150, 222.3, 180.5 };
-            CostOverTime.Plot.XAxis.DateTimeFormat(true);
-            CostOverTime.Plot.AddScatter(time, price);
-            CostOverTime.Refresh();
-            UpdateLeaderboardWithItems(new string[] { "Monster", "Broc", "Chicken", "Eggs" }, new decimal[] { 200.32m, 119.2m, 115m, 102.23m });
-        }  
-
-        public void UpdateLeaderboardWithItems(string[] names, decimal[] totals)
-        {
-            leaderboard.Text = "Leaderboard\n\n";
-            for(int i = 0; i < names.Length; i++)
-            {
-                leaderboard.Text += (i + 1) + ". " + names[i] + " $" + totals[i] + "\n\n";
-            }
         }
 
-        public void UpdateLeaderboardWithStores(string[] names, string[] addresses, decimal[] totals)
+        /// <summary>
+        /// Passes login info and logs in
+        /// </summary>
+        /// <param name="sender">The button being pressed</param>
+        /// <param name="e">Metadata for this event</param>
+        public void LoginDisplayChange(object sender, RoutedEventArgs e)
         {
-            leaderboard.Text = "Item Purchase Leaderboard\n\n";
-            for (int i = 0; i < names.Length; i++)
-            {
-                leaderboard.Text += (i + 1) + ". " + names[i] + " $" + totals[i] + "\n";
-                leaderboard.Text += addresses[i] + "\n\n";
-            }
-        }
-
-
-
-        public async void SelectImage(object sender, RoutedEventArgs e)
-        {
-
-            ImageReader reader = new ImageReader();
-            ClearText();
-            reader.OpenImage();
-            var task = Task.Run(async delegate {
-                await reader.ReadImage();
-            });
-            await task;
-            richText.Text = reader.Text;
-            ReceiptReader receiptReader = new ReceiptReader(reader);
-            Receipt receipt = new Receipt(receiptReader);
-            string json = JsonConvert.SerializeObject(receipt);
-            Server.Request("/log_receipt", new { Receipt = json }, (string response) => {
-                //Tell user receipt was uploaded
-            });
-
-
-
-
-
-            Receipt r = JsonConvert.DeserializeObject<Receipt>(json);
-            store.Text = r.StoreName;
-            subtotal.Text = r.SubTotal + "";
-            total.Text = r.Total + "";
-            tax1.Text = r.Tax1 + "";
-            tax2.Text = r.Tax2 + "";
-            List<PurchasedItem> items = r.PurchasedItems;
-            foreach(PurchasedItem item in items)
-            {
-                itemsBox.Text += item.Name + "     " + item.Code + "    $" + item.Price + '\n';
-            }
-            itemsBox.Text += items.Count;
-            lineCount.Text = receiptReader.ReceiptLines.Length + "";
-            id.Text = r.ReceiptDate.ToString();
-            box.Text = r.Street + " " + r.City + " " + r.State + " " + r.PostalCode;
+            HideAllTabs();
+            ReciptCtrl.Visibility = Visibility.Visible;
 
         }
 
-        private void ClearText()
+        /// <summary>
+        /// Holder empty click event
+        /// </summary>
+        /// <param name="sender">The button being pressed</param>
+        /// <param name="e">Metadata for this event</param>
+        public void NAClick(object sender, RoutedEventArgs e)
         {
-            richText.Text = "";
-            lineCount.Text = "LineCount";
-            store.Text = "StoreName";
-            subtotal.Text = "subtotal";
-            total.Text = "total";
-            tax1.Text = "tax1";
-            tax2.Text = "tax2";
-            itemsBox.Text = "";
+
+        }
+
+        /// <summary>
+        /// Handles account click button
+        /// </summary>
+        /// <param name="sender">The button being pressed</param>
+        /// <param name="e">Metadata for this event</param>
+        public void AccountClick(object sender, RoutedEventArgs e)
+        {
+            HideAllTabs();
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">The button being pressed</param>
+        /// <param name="e">Metadata for this event</param>
+        public void ReceiptClick(object sender, RoutedEventArgs e)
+        {
+            HideAllTabs();
+            ReciptCtrl.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">The button being pressed</param>
+        /// <param name="e">Metadata for this event</param>
+        public void ThreeClick(object sender, RoutedEventArgs e)
+        {
+            HideAllTabs();
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">The button being pressed</param>
+        /// <param name="e">Metadata for this event</param>
+        public void FourClick(object sender, RoutedEventArgs e)
+        {
+            HideAllTabs();
+
+        }
+
+        /// <summary>
+        /// Handles logout click button
+        /// </summary>
+        /// <param name="sender">The button being pressed</param>
+        /// <param name="e">Metadata for this event</param>
+        public void LogoutClick(object sender, RoutedEventArgs e)
+        {
+            HideAllTabs();
+            LoginCtrl.Visibility = Visibility.Visible;
         }
     }
 }

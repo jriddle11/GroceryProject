@@ -4,59 +4,174 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GroceryProject"
-        xmlns:ScottPlot="clr-namespace:ScottPlot;assembly=ScottPlot.WPF"
+        xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1200">
+        Title="Groceries O' Plenty" Height="600" Width="900" MinHeight="510" MinWidth="900">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="Background" Value="#f5f6f7"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+        
+        <!--Content Button design -->
+        <Style x:Key="ContentButtons" TargetType="{x:Type Button}">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Margin" Value="2"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#527de3"/>
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <SolidColorBrush Color="Blue"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+
+        <!--Side Menu Button design -->
+        <Style x:Key="MenuButtons" TargetType="{x:Type Button}">
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="BorderBrush">
+                <Setter.Value>
+                    <SolidColorBrush Color="White" Opacity="0"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#f5f6f7"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width=".25*"/>
+            <ColumnDefinition Width="150px"/>
+            <ColumnDefinition Width=".6*"/>
+            <ColumnDefinition Width=".8*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
+        <TextBox x:Name="richText" Grid.Column="0"/>
+        <Rectangle Grid.Row="0" Grid.Column="0" Fill="#527de3"/>
+        <Rectangle Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" Fill="#f5f6f7"/>
+        <TextBox x:Name="itemsBox" Grid.Column="3" FontFamily="Georgia" Background="#f5f6f7"/>
+
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="8*"/>
+            </Grid.RowDefinitions>
+            
+            <!--Side Menu Buttons-->
+            <Button Style="{StaticResource MenuButtons}" x:Name="AccountButton" FontWeight="Bold" FontFamily="Georgia" Grid.Row="0" Height="40" Grid.Column="0" Click="AccountClick" Background="#FFAFC8E2" Content="Account">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <Label HorizontalAlignment="Center" Content="{TemplateBinding Content}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Style="{StaticResource MenuButtons}" x:Name="ReceiptButton" FontWeight="Bold" FontFamily="Georgia" Grid.Row="1" Height="40" Grid.Column="0" Click="ReceiptClick" Background="#FFAFC8E2" Content="Receipts">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <Label HorizontalAlignment="Center" Content="{TemplateBinding Content}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Style="{StaticResource MenuButtons}" x:Name="ThreeButton" FontWeight="Bold" FontFamily="Georgia" Grid.Row="2" Height="40" Grid.Column="0" Click="ThreeClick" Background="#FFAFC8E2" Content="Button3">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <Label HorizontalAlignment="Center" Content="{TemplateBinding Content}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Style="{StaticResource MenuButtons}" x:Name="FourButton" FontWeight="Bold" FontFamily="Georgia" Grid.Row="3" Height="40" Grid.Column="0" Click="FourClick" Background="#FFAFC8E2" Content="Button4">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <Label HorizontalAlignment="Center" Content="{TemplateBinding Content}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Style="{StaticResource MenuButtons}" x:Name="LogoutButton" FontWeight="Bold" FontFamily="Georgia" Grid.Row="4" Height="40" Grid.Column="0" Click="LogoutClick" Background="#FFAFC8E2" Content="Logout">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <Label HorizontalAlignment="Center" Content="{TemplateBinding Content}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
                 <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
-            <Button Click="SelectImage" Grid.Row="0" Height="40" Width="200">Upload A Receipt</Button>
-            <TextBox x:Name="box" FontSize="20" Grid.Row="1"/>
-            <TextBlock x:Name="store" FontSize="20" Grid.Row="2">StoreName</TextBlock>
-            <TextBlock x:Name="lineCount" FontSize="20" Grid.Row="3">LineCount</TextBlock>
-            <TextBlock x:Name="total" FontSize="20" Grid.Row="4">total</TextBlock>
-            <TextBlock x:Name="subtotal" FontSize="20" Grid.Row="5">subtotal</TextBlock>
-            <TextBlock x:Name="tax1" FontSize="20" Grid.Row="6">tax1</TextBlock>
-            <TextBlock x:Name="tax2" FontSize="20" Grid.Row="7">tax2</TextBlock>
-            <TextBlock x:Name="id" FontSize="20" Grid.Row="8">id</TextBlock>
-            <TextBox x:Name="itemsBox" Grid.Row="9"/>
         </Grid>
-        <Grid Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <TextBox x:Name="richText" Grid.Row="1"/>
-            <ScottPlot:WpfPlot x:Name="CostOverTime" />
-        </Grid>
+
         <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+        </Grid>
+
+        <Grid Grid.Column="4" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
+                <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <TextBox x:Name="leaderboard" Grid.Row="0"/>
         </Grid>
+        
+
+        <local:LoginControl x:Name="LoginCtrl" Visibility="Hidden" Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="4"></local:LoginControl >
+        <local:ReciptProcessor x:Name="ReciptCtrl" Visibility="Visible"  Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="4"></local:ReciptProcessor >
     </Grid>
 </Window>

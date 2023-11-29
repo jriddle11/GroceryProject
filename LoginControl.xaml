@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="GroceryProject.LoginControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GroceryProject"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="840">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="Margin" Value="20"/>
+            <Setter Property="Background" Value="#FFF1F1F1"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="Margin" Value="20"/>
+            <Setter Property="Background" Value="#FFF1F1F1"/>
+        </Style>
+
+        <!--Button design -->
+        <Style x:Key="ItemButtons" TargetType="{x:Type Button}">
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="Margin" Value="20"/>
+            <Setter Property="BorderBrush" Value="#FFBBBBBB"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#527de3"/>
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <SolidColorBrush Color="SkyBlue"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="15"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+    </UserControl.Resources>
+
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top" TextAlignment="Center" TextWrapping="Wrap" FontSize="70">Groceries O' Plenty</TextBlock>
+        <StackPanel DockPanel.Dock="Bottom">
+            <TextBox x:Name="user" TextAlignment="Left" Height="40" Width="300" Margin="0 60 0 0">Username:</TextBox>
+            <TextBox x:Name="pass" TextAlignment="Left" Height="40" Width="300" Margin="0 20 0 0">Password:</TextBox>
+
+            <Button x:Name="LoginButton" Click="LoginClick" FontFamily="Georgia" FontSize="25" Margin="0 20 0 0" Height="40" Width="200" 
+                    Background="#527de3" Content="Login"></Button>
+        </StackPanel>
+    </DockPanel>
+</UserControl>
