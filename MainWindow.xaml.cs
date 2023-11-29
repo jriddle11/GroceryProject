@@ -66,8 +66,16 @@ namespace GroceryProject
             await task;
             richText.Text = reader.Text;
             ReceiptReader receiptReader = new ReceiptReader(reader);
-            Receipt fresh = new Receipt(receiptReader);
-            string json = JsonConvert.SerializeObject(fresh);
+            Receipt receipt = new Receipt(receiptReader);
+            string json = JsonConvert.SerializeObject(receipt);
+            Server.Request("/log_receipt", new { Receipt = json }, (string response) => {
+                //Tell user receipt was uploaded
+            });
+
+
+
+
+
             Receipt r = JsonConvert.DeserializeObject<Receipt>(json);
             store.Text = r.StoreName;
             subtotal.Text = r.SubTotal + "";
