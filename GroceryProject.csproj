@@ -7,9 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\ProfilePic.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="OxyPlot.Wpf" Version="2.1.2" />
     <PackageReference Include="ScottPlot.WPF" Version="4.1.68" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\ProfilePic.png" />
   </ItemGroup>
 
 </Project>

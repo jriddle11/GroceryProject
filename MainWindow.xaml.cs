@@ -25,6 +25,7 @@ namespace GroceryProject
         public MainWindow()
         {
             InitializeComponent();
+            LoginCtrl.Main = this;
 
         }
 
@@ -36,8 +37,8 @@ namespace GroceryProject
             //add all tabs here
             ReciptCtrl.Visibility = Visibility.Collapsed;
             LoginCtrl.Visibility = Visibility.Collapsed;
-            
-
+            AccountCtrl.Visibility = Visibility.Collapsed;
+            RankCtrl.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -49,6 +50,30 @@ namespace GroceryProject
         {
             HideAllTabs();
             ReciptCtrl.Visibility = Visibility.Visible;
+
+        }
+
+        /// <summary>
+        /// Passes login info and logs in
+        /// </summary>
+        /// <param name="sender">The button being pressed</param>
+        /// <param name="e">Metadata for this event</param>
+        public void RankDisplayChange(object sender, RoutedEventArgs e)
+        {
+            HideAllTabs();
+            RankCtrl.Visibility = Visibility.Visible;
+
+        }
+
+        /// <summary>
+        /// Moves user to Account page
+        /// </summary>
+        /// <param name="sender">The button being pressed</param>
+        /// <param name="e">Metadata for this event</param>
+        public void AccountDisplayChange(object sender, RoutedEventArgs e)
+        {
+            HideAllTabs();
+            AccountCtrl.Visibility = Visibility.Visible;
 
         }
 
@@ -70,7 +95,7 @@ namespace GroceryProject
         public void AccountClick(object sender, RoutedEventArgs e)
         {
             HideAllTabs();
-
+            AccountDisplayChange(sender, e);
         }
 
         /// <summary>
@@ -100,9 +125,10 @@ namespace GroceryProject
         /// </summary>
         /// <param name="sender">The button being pressed</param>
         /// <param name="e">Metadata for this event</param>
-        public void FourClick(object sender, RoutedEventArgs e)
+        public void RankClick(object sender, RoutedEventArgs e)
         {
             HideAllTabs();
+            RankDisplayChange(sender, e);
 
         }
 

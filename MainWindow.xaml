@@ -70,8 +70,7 @@
         <TextBox x:Name="richText" Grid.Column="0"/>
         <Rectangle Grid.Row="0" Grid.Column="0" Fill="#527de3"/>
         <Rectangle Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" Fill="#f5f6f7"/>
-        <TextBox x:Name="itemsBox" Grid.Column="3" FontFamily="Georgia" Background="#f5f6f7"/>
-
+        <Rectangle Grid.Row="0" Grid.Column="2" Fill="#f5f6f7"/>
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
@@ -110,7 +109,7 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Button Style="{StaticResource MenuButtons}" x:Name="FourButton" FontWeight="Bold" FontFamily="Georgia" Grid.Row="3" Height="40" Grid.Column="0" Click="FourClick" Background="#FFAFC8E2" Content="Button4">
+            <Button Style="{StaticResource MenuButtons}" x:Name="Ranks" FontWeight="Bold" FontFamily="Georgia" Grid.Row="3" Height="40" Grid.Column="0" Click="RankClick" Background="#FFAFC8E2" Content="Rank">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
@@ -169,9 +168,11 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
         </Grid>
-        
 
-        <local:LoginControl x:Name="LoginCtrl" Visibility="Hidden" Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="4"></local:LoginControl >
-        <local:ReciptProcessor x:Name="ReciptCtrl" Visibility="Visible"  Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="4"></local:ReciptProcessor >
+
+        <local:LoginControl x:Name="LoginCtrl" Visibility="Visible" Grid.Column="0" Grid.RowSpan="5" Grid.ColumnSpan="5"></local:LoginControl >
+        <local:ReciptProcessor x:Name="ReciptCtrl" Visibility="Hidden"  Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="4"></local:ReciptProcessor >
+        <local:AccountControl x:Name="AccountCtrl" Visibility="Hidden" Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="4"></local:AccountControl >
+        <local:RankControl x:Name="RankCtrl" Visibility="Hidden" Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="4"></local:RankControl >
     </Grid>
 </Window>

@@ -6,4 +6,20 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="AccountControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="RankControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AccountControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="RankControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
 </Project>

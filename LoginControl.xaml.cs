@@ -35,6 +35,15 @@ namespace GroceryProject
         {
             if (Main != null)
             {
+                string userEmail = user.Text;
+                string userPassword = pass.Text;
+                Server.Request(
+                "/insert_user",
+                new { email = userEmail, password = userPassword },
+                (string response) => { MessageBox.Show(response); }
+                );
+                user.Text = "";
+                pass.Text = "";
                 Main.LoginDisplayChange(sender, e);
             }
 

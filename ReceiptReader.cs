@@ -339,7 +339,31 @@ namespace GroceryProject
                     CheckAndGetItem(arr, items);
                 }
             }
-            return items;
+
+            return QuantityCheck(items);
+        }
+        private List<PurchasedItem> QuantityCheck(List<PurchasedItem> items)
+        {
+            Dictionary<PurchasedItem, int> dict = new Dictionary<PurchasedItem, int>();
+            foreach(PurchasedItem item in items)
+            {
+                if (dict.ContainsKey(item))
+                {
+                    dict[item]++;
+                }
+                else
+                {
+                    dict.Add(item, 1);
+                }
+            }
+            List<PurchasedItem> list = new List<PurchasedItem>();
+            foreach(PurchasedItem d in dict.Keys)
+            {
+                d.Quantity = dict[d];
+                list.Add(d);
+            }
+            return list;
+
         }
         /// <summary>
         /// Checks and retrieves an item from a line on the receipt
@@ -359,7 +383,6 @@ namespace GroceryProject
                     {
                         priceAcceptable = false;
                         PurchasedItem item = new();
-                        item.Code = line[i];
                         string name = "";
                         for (int j = 0; j < i; j++)
                         {

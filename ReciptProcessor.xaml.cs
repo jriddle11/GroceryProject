@@ -38,7 +38,7 @@ namespace GroceryProject
             plotModel.Series.Add(line);
 
             // Set the PlotModel to the PlotView
-            lineGraph.Model = plotModel;
+            //lineGraph.Model = plotModel;
         }
 
         /// <summary>
@@ -83,52 +83,23 @@ namespace GroceryProject
         {
 
             ImageReader reader = new ImageReader();
-            ClearText();
             reader.OpenImage();
             var task = Task.Run(async delegate {
                 await reader.ReadImage();
             });
             await task;
-            richText.Text = reader.Text;
             ReceiptReader receiptReader = new ReceiptReader(reader);
             Receipt receipt = new Receipt(receiptReader);
+            totalBox.Text = "$" + receipt.Total;
             string json = JsonConvert.SerializeObject(receipt);
             Server.Request("/log_receipt", new { Receipt = json }, (string response) => {
                 //Tell user receipt was uploaded
             });
-
-
-
-
-
-            Receipt r = JsonConvert.DeserializeObject<Receipt>(json);
-            store.Text = r.StoreName;
-            subtotal.Text = r.SubTotal + "";
-            total.Text = r.Total + "";
-            tax1.Text = r.Tax1 + "";
-            tax2.Text = r.Tax2 + "";
-            List<PurchasedItem> items = r.PurchasedItems;
-            foreach (PurchasedItem item in items)
+            foreach(string s in receiptReader.ReceiptLines)
             {
-                itemsBox.Text += item.Name + "     " + item.Code + "    $" + item.Price + '\n';
+                itemsBox.Text += s + "\n";
             }
-            itemsBox.Text += items.Count;
-            lineCount.Text = receiptReader.ReceiptLines.Length + "";
-            id.Text = r.ReceiptDate.ToString();
-            box.Text = r.Street + " " + r.City + " " + r.State + " " + r.PostalCode;
 
-        }
-
-        private void ClearText()
-        {
-            richText.Text = "";
-            lineCount.Text = "LineCount";
-            store.Text = "StoreName";
-            subtotal.Text = "subtotal";
-            total.Text = "total";
-            tax1.Text = "tax1";
-            tax2.Text = "tax2";
-            itemsBox.Text = "";
         }
     }
 }
