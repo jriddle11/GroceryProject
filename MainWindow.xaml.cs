@@ -30,17 +30,29 @@ namespace GroceryProject
             CostOverTime.Plot.XAxis.DateTimeFormat(true);
             CostOverTime.Plot.AddScatter(time, price);
             CostOverTime.Refresh();
-            UpdateLeaderboard(new string[] { "Monster", "Broc", "Chicken", "Eggs" }, new decimal[] { 200.32m, 119.2m, 115m, 102.23m });
+            UpdateLeaderboardWithItems(new string[] { "Monster", "Broc", "Chicken", "Eggs" }, new decimal[] { 200.32m, 119.2m, 115m, 102.23m });
         }  
 
-        public void UpdateLeaderboard(string[] names, decimal[] totals)
+        public void UpdateLeaderboardWithItems(string[] names, decimal[] totals)
         {
-            leaderboard.Text = "Item Purchase Leaderboard\n";
+            leaderboard.Text = "Leaderboard\n\n";
             for(int i = 0; i < names.Length; i++)
             {
-                leaderboard.Text += (i + 1) + ". " + names[i] + " $" + totals[i] + "\n";
+                leaderboard.Text += (i + 1) + ". " + names[i] + " $" + totals[i] + "\n\n";
             }
         }
+
+        public void UpdateLeaderboardWithStores(string[] names, string[] addresses, decimal[] totals)
+        {
+            leaderboard.Text = "Item Purchase Leaderboard\n\n";
+            for (int i = 0; i < names.Length; i++)
+            {
+                leaderboard.Text += (i + 1) + ". " + names[i] + " $" + totals[i] + "\n";
+                leaderboard.Text += addresses[i] + "\n\n";
+            }
+        }
+
+
 
         public async void SelectImage(object sender, RoutedEventArgs e)
         {

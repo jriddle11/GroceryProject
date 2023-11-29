@@ -247,7 +247,14 @@ namespace GroceryProject
                     }
                     if (count == 2)
                     {
-                        return s.Substring(s.IndexOf("/") - 2, s.IndexOf("/") + 6);
+                        try
+                        {
+                            return s.Substring(s.IndexOf("/") - 2, s.IndexOf("/") + 6);
+                        }
+                        catch (Exception e)
+                        {
+                            return s.Substring(s.IndexOf("/") - 2);
+                        }
                     }
                 }
             }
@@ -341,14 +348,16 @@ namespace GroceryProject
         /// <param name="list">The list of purchased items</param>
         private void CheckAndGetItem(string[] line, List<PurchasedItem> list)
         {
+            bool priceAcceptable = true;
             for (int i = 1; i < line.Length - 1; i++)
             {
 
                 ulong code = 0;
                 if (ulong.TryParse(line[i], out code))
                 {
-                    if (code > 1000000 && !line.Contains("DEBIT") && !line.Contains("TERMINAL"))
+                    if (code > 1000000 && !line.Contains("DEBIT") && !line.Contains("TERMINAL") && !line.Contains("REF"))
                     {
+                        priceAcceptable = false;
                         PurchasedItem item = new();
                         item.Code = line[i];
                         string name = "";
@@ -365,16 +374,21 @@ namespace GroceryProject
                                 {
                                     decimal price = decimal.Parse(line[y]);
                                     item.Price = price;
-
+                                    if(price < 1500 && price > 0.0m)
+                                    {
+                                        priceAcceptable = true;
+                                    }
                                 }
                                 catch
                                 {
-
+                                    priceAcceptable = false;
                                 }
                             }
                         }
-
-                        list.Add(item);
+                        if (priceAcceptable)
+                        {
+                            list.Add(item);
+                        }
                     }
                 }
 
