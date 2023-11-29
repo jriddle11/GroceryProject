@@ -65,13 +65,13 @@
                 <TextBlock  FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center">Users</TextBlock>
             </Border>
             <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="2">
-                <ListView x:Name="usersList" ItemsSource="{Binding}"/>
+                <ListView x:Name="usersList" FontSize="20" FontFamily="Georgia" ItemsSource="{Binding}"/>
             </Border>
             <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="1">
-                <ListView x:Name="storesList"/>
+                <ListView x:Name="storesList" FontSize="20" FontFamily="Georgia"  ItemsSource="{Binding}"/>
             </Border>
             <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="0">
-                <ListView x:Name="itemsList"/>
+                <ListView x:Name="itemsList" FontSize="20" FontFamily="Georgia"  ItemsSource="{Binding}"/>
             </Border>
             <Button HorizontalAlignment="Right" VerticalAlignment="Top" Click="OnClickItemsArrange"  Margin="10" Grid.Row="1" Height="30" Width="30">^</Button>
             <Button HorizontalAlignment="Right" VerticalAlignment="Top" Click="OnClickStoresArrange" Margin="10" Grid.Row="1" Grid.Column="1" Height="30" Width="30">^</Button>

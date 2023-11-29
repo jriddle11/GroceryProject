@@ -21,29 +21,68 @@ namespace GroceryProject
     /// </summary>
     public partial class RankControl : UserControl
     {
-        public List<string> users = new List<string>();
+        public DataCollection UserDataBoard = new DataCollection();
+        public DataCollection StoreDataBoard = new DataCollection();
+        public DataCollection ItemDataBoard = new DataCollection();
 
 
         public RankControl()
         {
             InitializeComponent();
-            users.Add("josh");
-            users.Add("kael");
-            users.Add("alex");
-            usersList.DataContext = users;
+            usersList.DataContext = UserDataBoard;
+            storesList.DataContext = StoreDataBoard;
+            itemsList.DataContext = ItemDataBoard;
+            List<string> items = new List<string>();
+            items.Add("Josh");
+            items.Add("Alex");
+            items.Add("Kael");
+            NewUserBoard(items);
+        }
+
+        public void NewUserBoard(List<string> list)
+        {
+            UserDataBoard.Clear();
+            int rank = 1;
+            foreach (string item in list)
+            {
+                UserDataBoard.Add("#" + rank + "     " + item);
+                ++rank;
+            }
+        }
+
+        public void NewItemBoard(List<string> list)
+        {
+            ItemDataBoard.Clear();
+            int rank = 1;
+            foreach (string item in list)
+            {
+                ItemDataBoard.Add("#" + rank + "     " + item);
+                ++rank;
+            }
+        }
+
+        public void NewStoreBoard(List<string> list)
+        {
+            StoreDataBoard.Clear();
+            int rank = 1;
+            foreach (string item in list)
+            {
+                StoreDataBoard.Add("#" + rank + "     " + item);
+                ++rank;
+            }
         }
 
         public void OnClickItemsArrange(object sender, EventArgs e)
         {
-            users.Reverse();
+            ItemDataBoard.Reverse();
         }
         public void OnClickUsersArrange(object sender, EventArgs e)
         {
-            users.Reverse();
+            UserDataBoard.Reverse();
         }
         public void OnClickStoresArrange(object sender, EventArgs e)
         {
-            users.Reverse();
+            StoreDataBoard.Reverse();
         }
     }
 }
