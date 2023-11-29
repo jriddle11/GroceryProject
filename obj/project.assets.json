@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net5.0-windows7.0": {
+    "net6.0-windows7.0": {
       "Microsoft.NETCore.Platforms/3.1.4": {
         "type": "package",
         "compile": {
@@ -32,10 +32,10 @@
       "Newtonsoft.Json/13.0.3": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+          "lib/net6.0/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+          "lib/net6.0/Newtonsoft.Json.dll": {}
         }
       },
       "ScottPlot/4.1.68": {
@@ -45,10 +45,10 @@
           "System.Numerics.Vectors": "4.5.0"
         },
         "compile": {
-          "lib/netstandard2.0/ScottPlot.dll": {}
+          "lib/net6.0/ScottPlot.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/ScottPlot.dll": {}
+          "lib/net6.0/ScottPlot.dll": {}
         }
       },
       "ScottPlot.WPF/4.1.68": {
@@ -57,10 +57,10 @@
           "ScottPlot": "4.1.68"
         },
         "compile": {
-          "lib/netcoreapp3.1/ScottPlot.WPF.dll": {}
+          "lib/net6.0-windows7.0/ScottPlot.WPF.dll": {}
         },
         "runtime": {
-          "lib/netcoreapp3.1/ScottPlot.WPF.dll": {}
+          "lib/net6.0-windows7.0/ScottPlot.WPF.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.WindowsDesktop.App.WPF"
@@ -307,7 +307,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net5.0-windows7.0": [
+    "net6.0-windows7.0": [
       "Newtonsoft.Json >= 13.0.3",
       "ScottPlot.WPF >= 4.1.68"
     ]
@@ -329,15 +329,15 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net5.0-windows7.0"
+        "net6.0-windows7.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net5.0-windows7.0": {
-          "targetAlias": "net5.0-windows",
+        "net6.0-windows7.0": {
+          "targetAlias": "net6.0-windows",
           "projectReferences": {}
         }
       },
@@ -348,8 +348,8 @@
       }
     },
     "frameworks": {
-      "net5.0-windows7.0": {
-        "targetAlias": "net5.0-windows",
+      "net6.0-windows7.0": {
+        "targetAlias": "net6.0-windows",
         "dependencies": {
           "Newtonsoft.Json": {
             "target": "Package",
