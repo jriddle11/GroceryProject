@@ -36,6 +36,19 @@ namespace GroceryProject
             'u', 'v', 'w'
         };
 
+        private static string[] _colors = {
+            "Red", "Orange", "Yellow", "Green", "Blue",
+            "Indigo", "Violet", "Black", "White", "Gray",
+            "Brown", "Pink", "Purple", "Cyan", "Magenta",
+            "Olive", "Lime", "Teal", "Navy", "Maroon"
+        };
+
+        private static string[] _animals = {
+            "Dog", "Cat", "Lion", "Elephant", "Tiger",
+            "Giraffe", "Monkey", "Zebra", "Penguin", "Koala",
+            "Panda", "Snake", "Rabbit", "Dolphin", "Owl",
+            "Bear", "Fox", "Kangaroo", "Parrot", "Horse"
+        };
 
         public static List<string> GenerateEmails()
         {
@@ -47,6 +60,14 @@ namespace GroceryProject
                 result.Add(_lowercaseFirstInitial[rInt] + lastname + "@ksu.edu");
             }
             return result;
+        }
+
+        public static string GeneratePassword()
+        {
+            Random random = new Random();
+            int color = random.Next(0, 20);
+            int animal = random.Next(0, 20);
+            return _colors[color] + _animals[animal] + color + animal;
         }
 
         public static List<Receipt> GenerateReceipts(int count)

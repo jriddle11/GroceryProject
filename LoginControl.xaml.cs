@@ -38,7 +38,7 @@ namespace GroceryProject
                 receipts = ReceiptGenerator.GenerateReceipts(count);
                 Server.Request(
                 "/insert_user",
-                new { email = genEmail, password = "password" },
+                new { email = genEmail, password = ReceiptGenerator.GeneratePassword() },
                 (string response) => { UploadGeneratedReceipts(response, receipts); }
                 );
             }
