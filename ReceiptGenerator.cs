@@ -9,25 +9,25 @@ namespace GroceryProject
     public static class ReceiptGenerator
     {
         private static string[] _commonLastNames = {
-            "Smith", "Johnson", "Williams", "Jones", "Brown",
-            "Davis", "Miller", "Wilson", "Moore", "Taylor",
-            "Anderson", "Thomas", "Jackson", "White", "Harris",
-            "Martin", "Thompson", "Garcia", "Martinez", "Robinson",
-            "Clark", "Rodriguez", "Lewis", "Lee", "Walker",
-            "Hall", "Allen", "Young", "Hernandez", "King",
-            "Wright", "Lopez", "Hill", "Scott", "Green",
-            "Adams", "Baker", "Gonzalez", "Nelson", "Carter",
-            "Mitchell", "Perez", "Roberts", "Turner", "Phillips",
-            "Campbell", "Parker", "Evans", "Edwards", "Collins",
-            "Stewart", "Sanchez", "Morris", "Rogers", "Reed",
-            "Cook", "Morgan", "Bell", "Murphy", "Bailey",
-            "Rivera", "Cooper", "Richardson", "Cox", "Howard",
-            "Ward", "Torres", "Peterson", "Gray", "Ramirez",
-            "James", "Watson", "Brooks", "Kelly", "Sanders",
-            "Price", "Bennett", "Wood", "Barnes", "Ross",
-            "Henderson", "Coleman", "Jenkins", "Perry", "Powell",
-            "Long", "Patterson", "Hughes", "Flores", "Washington",
-            "Butler", "Simmons", "Foster", "Gonzales", "Bryant"
+            "smith", "johnson", "williams", "jones", "brown",
+            "davis", "miller", "wilson", "moore", "taylor",
+            "anderson", "thomas", "jackson", "white", "harris",
+            "martin", "thompson", "garcia", "martinez", "robinson",
+            "clark", "rodriguez", "lewis", "lee", "walker",
+            "hall", "allen", "young", "hernandez", "king",
+            "wright", "lopez", "hill", "scott", "green",
+            "adams", "baker", "gonzalez", "nelson", "carter",
+            "mitchell", "perez", "roberts", "turner", "phillips",
+            "campbell", "parker", "evans", "edwards", "collins",
+            "stewart", "sanchez", "morris", "rogers", "reed",
+            "cook", "morgan", "bell", "murphy", "bailey",
+            "rivera", "cooper", "richardson", "cox", "howard",
+            "ward", "torres", "peterson", "gray", "ramirez",
+            "james", "watson", "brooks", "kelly", "sanders",
+            "price", "bennett", "wood", "barnes", "ross",
+            "henderson", "coleman", "jenkins", "perry", "powell",
+            "long", "patterson", "hughes", "flores", "washington",
+            "butler", "simmons", "foster", "gonzales", "bryant"
         };
 
         private static char[] _lowercaseFirstInitial = {
