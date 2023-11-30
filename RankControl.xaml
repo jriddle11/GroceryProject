@@ -73,9 +73,9 @@
             <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="0">
                 <ListView x:Name="itemsList" FontSize="14" FontFamily="Georgia"  ItemsSource="{Binding}"/>
             </Border>
-            <Button HorizontalAlignment="Right" VerticalAlignment="Top" Click="OnClickItemsArrange"  Margin="10" Grid.Row="1" Height="20" Width="20">^</Button>
-            <Button HorizontalAlignment="Right" VerticalAlignment="Top" Click="OnClickStoresArrange" Margin="10" Grid.Row="1" Grid.Column="1" Height="20" Width="20">^</Button>
-            <Button HorizontalAlignment="Right" VerticalAlignment="Top" Click="OnClickUsersArrange" Margin="10" Grid.Row="1" Grid.Column="2" Height="20" Width="20">^</Button>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Top" Click="OnClickItemsArrange"  Margin="10" Grid.Row="0" Height="20" Width="20">^</Button>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Top" Click="OnClickStoresArrange" Margin="10" Grid.Row="0" Grid.Column="1" Height="20" Width="20">^</Button>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Top" Click="OnClickUsersArrange" Margin="10" Grid.Row="0" Grid.Column="2" Height="20" Width="20">^</Button>
         </Grid>
     </Grid>
 </UserControl>
