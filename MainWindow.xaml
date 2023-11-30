@@ -134,7 +134,7 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Button Style="{StaticResource MenuButtons}" x:Name="Admin" FontWeight="Bold" FontFamily="Georgia" Grid.Row="5" Height="70" Grid.Column="0" Click="RankClick" Background="#FFAFC8E2" Content="Admin">
+            <Button Style="{StaticResource MenuButtons}" x:Name="Admin" FontWeight="Bold" FontFamily="Georgia" Grid.Row="5" Height="70" Grid.Column="0" Click="AdminClick" Background="#FFAFC8E2" Content="Admin">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
@@ -190,5 +190,6 @@
         <local:ReciptProcessor x:Name="ReciptCtrl" Visibility="Hidden"  Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="4"></local:ReciptProcessor >
         <local:AccountControl x:Name="AccountCtrl" Visibility="Hidden" Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="4"></local:AccountControl >
         <local:RankControl x:Name="RankCtrl" Visibility="Hidden" Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="4"></local:RankControl >
+        <local:AdminControl x:Name="AdminCtrl" Visibility="Hidden" Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="4"></local:AdminControl >
     </Grid>
 </Window>

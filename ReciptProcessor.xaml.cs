@@ -23,6 +23,7 @@ namespace GroceryProject
     /// </summary>
     public partial class ReciptProcessor : UserControl
     {
+        public MainWindow? Main;
         public ReciptProcessor()
         {
             InitializeComponent();
@@ -91,9 +92,10 @@ namespace GroceryProject
             ReceiptReader receiptReader = new ReceiptReader(reader);
             Receipt receipt = new Receipt(receiptReader);
             totalBox.Text = "$" + receipt.Total;
+            itemCountBox.Text = receipt.PurchasedItems.Count + "";
             string json = JsonConvert.SerializeObject(receipt);
-            Server.Request("/log_receipt", new { Receipt = json }, (string response) => {
-                //Tell user receipt was uploaded
+            Server.Request("/log_receipt", new { Receipt = json, UserId = Main.UserId }, (string response) => {
+                MessageBox.Show("Receipt upload success!");
             });
             foreach(string s in receiptReader.ReceiptLines)
             {

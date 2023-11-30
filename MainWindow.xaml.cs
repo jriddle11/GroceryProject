@@ -20,13 +20,18 @@ namespace GroceryProject
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+   
     public partial class MainWindow : Window
     {
+        public string UserId;
+        public string Email;
+        
         public MainWindow()
         {
             InitializeComponent();
             LoginCtrl.Main = this;
-
+            ReciptCtrl.Main = this;
+            AccountCtrl.Main = this;
         }
 
         /// <summary>
@@ -39,6 +44,7 @@ namespace GroceryProject
             LoginCtrl.Visibility = Visibility.Collapsed;
             AccountCtrl.Visibility = Visibility.Collapsed;
             RankCtrl.Visibility = Visibility.Collapsed;
+            AdminCtrl.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -66,6 +72,19 @@ namespace GroceryProject
         }
 
         /// <summary>
+        /// Switches to admin
+        /// </summary>
+        /// <param name="sender">The button being pressed</param>
+        /// <param name="e">Metadata for this event</param>
+        public void AdminDisplayChange(object sender, RoutedEventArgs e)
+        {
+            HideAllTabs();
+            AdminCtrl.OpenAdminPage();
+            AdminCtrl.Visibility = Visibility.Visible;
+
+        }
+
+        /// <summary>
         /// Moves user to Account page
         /// </summary>
         /// <param name="sender">The button being pressed</param>
@@ -73,6 +92,7 @@ namespace GroceryProject
         public void AccountDisplayChange(object sender, RoutedEventArgs e)
         {
             HideAllTabs();
+            AccountCtrl.OpenAccountPage();
             AccountCtrl.Visibility = Visibility.Visible;
 
         }
@@ -96,6 +116,17 @@ namespace GroceryProject
         {
             HideAllTabs();
             AccountDisplayChange(sender, e);
+        }
+
+        /// <summary>
+        /// Handles admin click button
+        /// </summary>
+        /// <param name="sender">The button being pressed</param>
+        /// <param name="e">Metadata for this event</param>
+        public void AdminClick(object sender, RoutedEventArgs e)
+        {
+            HideAllTabs();
+            AdminDisplayChange(sender, e);
         }
 
         /// <summary>

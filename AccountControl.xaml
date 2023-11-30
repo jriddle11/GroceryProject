@@ -75,9 +75,9 @@
                 <TextBlock VerticalAlignment="Center" FontSize="25" FontFamily="Georgia">User ID#:</TextBlock>
                 <TextBlock VerticalAlignment="Center" FontSize="25" Grid.Row="1" FontFamily="Georgia">Email:</TextBlock>
                 <TextBlock VerticalAlignment="Center" FontSize="25" Grid.Row="2" FontFamily="Georgia">Joined:</TextBlock>
-                <TextBlock VerticalAlignment="Center" Text="112" FontSize="25" Grid.Column="1" Grid.Row="0" FontFamily="Georgia"/>
-                <TextBlock VerticalAlignment="Center" Text="joeBob@gmail.com" FontSize="25" Grid.Column="1" Grid.Row="1" FontFamily="Georgia"/>
-                <TextBlock VerticalAlignment="Center" Text="10/10/2010" FontSize="25" Grid.Column="1" Grid.Row="2" FontFamily="Georgia"/>
+                <TextBlock x:Name="userid" VerticalAlignment="Center" FontSize="25" Grid.Column="1" Grid.Row="0" FontFamily="Georgia"/>
+                <TextBlock x:Name="useremail" VerticalAlignment="Center" FontSize="25" Grid.Column="1" Grid.Row="1" FontFamily="Georgia"/>
+                <TextBlock VerticalAlignment="Center" FontSize="25" Grid.Column="1" Grid.Row="2" FontFamily="Georgia"/>
 
             </Grid>
         </Border>
@@ -87,7 +87,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" FontFamily="Georgia" FontSize="30">Total Purchases:</TextBlock>
+            <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" FontFamily="Georgia" FontSize="30">Total Spent:</TextBlock>
             <TextBlock  Grid.Row="1" HorizontalAlignment="Center" FontFamily="Georgia" Margin="0 10 0 0" Text="$0.00" FontSize="30"></TextBlock>
         </Grid>
         <Grid Grid.Row="1" Grid.Column="1">

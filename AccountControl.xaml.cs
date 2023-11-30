@@ -14,15 +14,23 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace GroceryProject
-{
+{ 
+
     /// <summary>
     /// Interaction logic for AccountControl.xaml
     /// </summary>
     public partial class AccountControl : UserControl
     {
+        public MainWindow? Main;
         public AccountControl()
         {
             InitializeComponent();
+        }
+
+        public void OpenAccountPage()
+        {
+            userid.Text = Main.UserId;
+            useremail.Text = Main.Email;
         }
     }
 }

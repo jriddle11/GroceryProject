@@ -33,9 +33,9 @@ namespace GroceryProject
             storesList.DataContext = StoreDataBoard;
             itemsList.DataContext = ItemDataBoard;
             List<string> items = new List<string>();
-            items.Add("Josh");
-            items.Add("Alex");
-            items.Add("Kael");
+            items.Add("jariddle@ksu.edu");
+            items.Add("avaller@ksu.edu");
+            items.Add("Kaelpav@ksu.edu");
             NewUserBoard(items);
         }
 
@@ -45,7 +45,7 @@ namespace GroceryProject
             int rank = 1;
             foreach (string item in list)
             {
-                UserDataBoard.Add("#" + rank + "     " + item);
+                UserDataBoard.Add("#" + rank + "   " + item);
                 ++rank;
             }
         }
@@ -56,7 +56,7 @@ namespace GroceryProject
             int rank = 1;
             foreach (string item in list)
             {
-                ItemDataBoard.Add("#" + rank + "     " + item);
+                ItemDataBoard.Add("#" + rank + "   " + item);
                 ++rank;
             }
         }
@@ -67,7 +67,7 @@ namespace GroceryProject
             int rank = 1;
             foreach (string item in list)
             {
-                StoreDataBoard.Add("#" + rank + "     " + item);
+                StoreDataBoard.Add("#" + rank + "   " + item);
                 ++rank;
             }
         }
