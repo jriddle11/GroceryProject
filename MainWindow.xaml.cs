@@ -32,6 +32,7 @@ namespace GroceryProject
             LoginCtrl.Main = this;
             ReciptCtrl.Main = this;
             AccountCtrl.Main = this;
+            RankCtrl.Main = this;
         }
 
         /// <summary>
@@ -68,6 +69,7 @@ namespace GroceryProject
         public void RankDisplayChange(object sender, RoutedEventArgs e)
         {
             HideAllTabs();
+            RankCtrl.OpenRanksPage();
             RankCtrl.Visibility = Visibility.Visible;
 
         }

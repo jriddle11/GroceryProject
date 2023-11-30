@@ -104,7 +104,7 @@
 
                     <TextBlock VerticalAlignment="Center" Margin="50 0 0 0" Grid.Row="0" FontSize="20" FontFamily="Georgia">Receipt Total:</TextBlock>
                     <TextBlock x:Name="totalBox" VerticalAlignment="Center" Margin="10 0 0 0"  Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Arial">$0.00</TextBlock>
-                    <TextBlock VerticalAlignment="Center" Margin="50 0 0 0" Grid.Row="1" FontSize="20" FontFamily="Georgia">Item Count:</TextBlock>
+                    <TextBlock VerticalAlignment="Center" Margin="50 0 0 0" Grid.Row="1" FontSize="20" FontFamily="Georgia">Unique Items:</TextBlock>
                     <TextBlock x:Name="itemCountBox"  VerticalAlignment="Center" Margin="10 0 0 0" Grid.Row="1" Grid.Column="1" FontSize="20" FontFamily="Arial">0</TextBlock>
 
                 </Grid>

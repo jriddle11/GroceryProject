@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.Specialized;
+using Newtonsoft.Json;
 
 namespace GroceryProject
 {
@@ -21,6 +22,7 @@ namespace GroceryProject
     /// </summary>
     public partial class RankControl : UserControl
     {
+        public MainWindow? Main;
         public DataCollection UserDataBoard = new DataCollection();
         public DataCollection StoreDataBoard = new DataCollection();
         public DataCollection ItemDataBoard = new DataCollection();
@@ -65,6 +67,47 @@ namespace GroceryProject
                 StoreDataBoard.Add("#" + rank + "   " + item);
                 ++rank;
             }
+        }
+
+        public void OpenRanksPage()
+        {
+            Server.Request(
+                "/all_items_from_user",
+                new { UserId = Main.UserId },
+                (string response) => {
+                    List<(string, decimal)> result = JsonConvert.DeserializeObject<List<(string, decimal)>>(response);
+                    List<string> list = new List<string>();
+                    foreach ((string, decimal) l in result)
+                    {
+                        list.Add(l.Item1 + "    $" + l.Item2.ToString());
+                    }
+                    NewItemBoard(list);
+                });
+            Server.Request(
+                "/rank_stores",
+                new { UserId = Main.UserId },
+                (string response) => {
+                    List<(string, string, string, decimal)> result = JsonConvert.DeserializeObject<List<(string, string, string, decimal)>>(response);
+                    //Name street phone money
+                    List<string> list = new List<string>();
+                    foreach ((string, string, string, decimal) l in result)
+                    {
+                        list.Add(l.Item1 + "    $" + l.Item4.ToString());
+                    }
+                    NewStoreBoard(list);
+                });
+            Server.Request(
+                "/rank_user",
+                new { UserId = Main.UserId },
+                (string response) => {
+                    List<(string, decimal)> result = JsonConvert.DeserializeObject<List<(string, decimal)>>(response);
+                    List<string> list = new List<string>();
+                    foreach ((string, decimal) l in result)
+                    {
+                        list.Add(l.Item1 + "    $" + l.Item2.ToString());
+                    }
+                    NewUserBoard(list);
+                });
         }
 
         public void OnClickItemsArrange(object sender, EventArgs e)

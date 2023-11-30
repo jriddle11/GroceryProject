@@ -40,19 +40,27 @@ namespace GroceryProject
                 Server.Request(
                 "/insert_user",
                 new { email = userEmail, password = userPassword },
-                (string response) => { SetId(response); }
+                (string response) => { SetId(response, sender, e); }
                 );
                 Main.Email = userEmail;
                 user.Text = "";
                 pass.Text = "";
-                Main.LoginDisplayChange(sender, e);
+                Main.LoginDisplayChange(sender, e); //remove when server is connected
             }
 
         }
 
-        private void SetId(string message)
+        private void SetId(string message, object sender, RoutedEventArgs e)
         {
-            Main.UserId = message;
+            if (message != "-1")
+            {
+                Main.UserId = message;
+                //Main.LoginDisplayChange(sender, e);    Add back in when server is connected
+            }
+            else
+            {
+                Main.LogoutClick(sender, e);
+            }
         }
     }
 }
