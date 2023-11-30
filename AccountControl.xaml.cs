@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 
 namespace GroceryProject
 { 
@@ -31,6 +32,18 @@ namespace GroceryProject
         {
             userid.Text = Main.UserId;
             useremail.Text = Main.Email;
+            Server.Request(
+                "/user_information",
+                new { UserId = 2 },
+                (string response) => {
+                    (string, string, string, decimal, int) result = JsonConvert.DeserializeObject<List<(string, string, string, decimal, int)>>(response)[0];
+                    //UserId, Email, JoinDate, Spent, UploadedRecipts
+                    userjoin.Text = result.Item3;
+                    userspent.Text = "$" + result.Item4;
+                    useruploaded.Text = "" + result.Item5;
+                }
+           );
+
         }
     }
 }
