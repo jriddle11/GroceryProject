@@ -34,7 +34,7 @@ namespace GroceryProject
             useremail.Text = Main.Email;
             Server.Request(
                 "/user_information",
-                new { UserId = 2 },
+                new { UserId = Main.UserId },
                 (string response) => {
                     (string, string, string, decimal, int) result = JsonConvert.DeserializeObject<List<(string, string, string, decimal, int)>>(response)[0];
                     //UserId, Email, JoinDate, Spent, UploadedRecipts
