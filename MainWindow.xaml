@@ -106,7 +106,7 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Button Style="{StaticResource MenuButtons}" x:Name="ThreeButton" FontWeight="Bold" FontFamily="Georgia" Grid.Row="2" Height="70" Grid.Column="0" Click="ThreeClick" Background="#FFAFC8E2" Content="Graphs">
+            <Button Style="{StaticResource MenuButtons}" x:Name="Graph" FontWeight="Bold" FontFamily="Georgia" Grid.Row="2" Height="70" Grid.Column="0" Click="GraphClick" Background="#FFAFC8E2" Content="Graphs">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
@@ -191,5 +191,6 @@
         <local:AccountControl x:Name="AccountCtrl" Visibility="Hidden" Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="4"></local:AccountControl >
         <local:RankControl x:Name="RankCtrl" Visibility="Hidden" Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="4"></local:RankControl >
         <local:AdminControl x:Name="AdminCtrl" Visibility="Hidden" Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="4"></local:AdminControl >
+        <local:GraphsControl x:Name="GraphsCtrl" Visibility="Hidden"  Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="4"></local:GraphsControl >
     </Grid>
 </Window>

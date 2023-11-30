@@ -32,11 +32,6 @@ namespace GroceryProject
             usersList.DataContext = UserDataBoard;
             storesList.DataContext = StoreDataBoard;
             itemsList.DataContext = ItemDataBoard;
-            List<string> items = new List<string>();
-            items.Add("jariddle@ksu.edu");
-            items.Add("avaller@ksu.edu");
-            items.Add("Kaelpav@ksu.edu");
-            NewUserBoard(items);
         }
 
         public void NewUserBoard(List<string> list)

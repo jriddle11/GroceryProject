@@ -24,6 +24,9 @@
     <Page Update="AdminControl.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="GraphsControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="RankControl.xaml">
       <SubType>Designer</SubType>
     </Page>

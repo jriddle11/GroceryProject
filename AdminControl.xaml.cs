@@ -29,11 +29,14 @@ namespace GroceryProject
         }
         public void OpenAdminPage()
         {
+            UserEmailsAndPasswords = new DataCollection();
+            usersList.DataContext = UserEmailsAndPasswords;
             Server.Request(
                 "/all_users",
                 new { },
                 (string response) => {
                     List<(string, string)> result = JsonConvert.DeserializeObject<List<(string, string)>>(response);
+
                     foreach ((string, string) l in result)
                     {
                         UserEmailsAndPasswords.Add(l.Item1 + "   " + l.Item2);

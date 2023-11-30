@@ -45,6 +45,7 @@ namespace GroceryProject
             AccountCtrl.Visibility = Visibility.Collapsed;
             RankCtrl.Visibility = Visibility.Collapsed;
             AdminCtrl.Visibility = Visibility.Collapsed;
+            GraphsCtrl.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -98,12 +99,14 @@ namespace GroceryProject
         }
 
         /// <summary>
-        /// Holder empty click event
+        /// Moves user to Account page
         /// </summary>
         /// <param name="sender">The button being pressed</param>
         /// <param name="e">Metadata for this event</param>
-        public void NAClick(object sender, RoutedEventArgs e)
+        public void GraphDisplayChange(object sender, RoutedEventArgs e)
         {
+            HideAllTabs();
+            GraphsCtrl.Visibility = Visibility.Visible;
 
         }
 
@@ -116,6 +119,17 @@ namespace GroceryProject
         {
             HideAllTabs();
             AccountDisplayChange(sender, e);
+        }
+
+        /// <summary>
+        /// Handles graph click button
+        /// </summary>
+        /// <param name="sender">The button being pressed</param>
+        /// <param name="e">Metadata for this event</param>
+        public void GraphClick(object sender, RoutedEventArgs e)
+        {
+            HideAllTabs();
+            GraphDisplayChange(sender, e);
         }
 
         /// <summary>
@@ -138,17 +152,6 @@ namespace GroceryProject
         {
             HideAllTabs();
             ReciptCtrl.Visibility = Visibility.Visible;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender">The button being pressed</param>
-        /// <param name="e">Metadata for this event</param>
-        public void ThreeClick(object sender, RoutedEventArgs e)
-        {
-            HideAllTabs();
-
         }
 
         /// <summary>
