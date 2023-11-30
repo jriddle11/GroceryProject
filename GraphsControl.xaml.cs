@@ -238,15 +238,5 @@ namespace GroceryProject
             GraphSpot.Model = plotModel;
             graphTitle.Text = "High-Low Sale tracker";
         }
-
-        /// <summary>
-        /// Holder empty click event
-        /// </summary>
-        /// <param name="sender">The button being pressed</param>
-        /// <param name="e">Metadata for this event</param>
-        public void fiveClick(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

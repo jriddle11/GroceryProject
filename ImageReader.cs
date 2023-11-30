@@ -13,7 +13,7 @@ namespace GroceryProject
 {
     public class ImageReader
     {
-        public string ImagePath { get; set; }
+        private string ImagePath;
         public string Text { get; private set; }
         private byte[] ImageToBase64(System.Drawing.Image image, System.Drawing.Imaging.ImageFormat format)
         {

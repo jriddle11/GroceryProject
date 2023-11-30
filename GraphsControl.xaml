@@ -133,15 +133,7 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    <Button Style="{StaticResource GraphButtons}" x:Name="fiveButton" FontWeight="Bold" FontFamily="Georgia" Grid.Row="4" Height="40" Click="fiveClick" Background="#FFAFC8E2" Content="">
-                        <Button.Template>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                                    <Label HorizontalAlignment="Center" Content="{TemplateBinding Content}"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
+                
 
                 </Grid>
 

@@ -23,9 +23,9 @@ namespace GroceryProject
     public partial class RankControl : UserControl
     {
         public MainWindow? Main;
-        public DataCollection UserDataBoard = new DataCollection();
-        public DataCollection StoreDataBoard = new DataCollection();
-        public DataCollection ItemDataBoard = new DataCollection();
+        private DataCollection UserDataBoard = new DataCollection();
+        private DataCollection StoreDataBoard = new DataCollection();
+        private DataCollection ItemDataBoard = new DataCollection();
 
 
         public RankControl()
@@ -36,7 +36,7 @@ namespace GroceryProject
             itemsList.DataContext = ItemDataBoard;
         }
 
-        public void NewUserBoard(List<string> list)
+        private void NewUserBoard(List<string> list)
         {
             UserDataBoard.Clear();
             int rank = 1;
@@ -47,7 +47,7 @@ namespace GroceryProject
             }
         }
 
-        public void NewItemBoard(List<string> list)
+        private void NewItemBoard(List<string> list)
         {
             ItemDataBoard.Clear();
             int rank = 1;
@@ -58,7 +58,7 @@ namespace GroceryProject
             }
         }
 
-        public void NewStoreBoard(List<string> list)
+        private void NewStoreBoard(List<string> list)
         {
             StoreDataBoard.Clear();
             int rank = 1;

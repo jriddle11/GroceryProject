@@ -229,7 +229,7 @@ namespace GroceryProject
         /// Finds the date of this receipt
         /// </summary>
         /// <returns>A date as a string</returns>
-        public string FindDate()
+        private string FindDate()
         {
 
             foreach (string s in ReceiptLines)
@@ -264,7 +264,7 @@ namespace GroceryProject
         /// Finds the time this receipt was made
         /// </summary>
         /// <returns>A string of the time</returns>
-        public string FindTime()
+        private string FindTime()
         {
 
             foreach (string s in ReceiptLines)
