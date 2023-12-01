@@ -50,6 +50,108 @@ namespace GroceryProject
             "Bear", "Fox", "Kangaroo", "Parrot", "Horse"
         };
 
+        private static string[] _commonGroceryStoreNames = new string[]
+        {
+            "SuperMart",
+            "MegaMarket",
+            "FreshFoods",
+            "QuickStop",
+            "EverydayGrocery",
+            "NeighborhoodMart",
+            "SaveMore",
+            "ValueVillage",
+            "PrimeProduce",
+            "EssentialMart",
+            "SmartShopper",
+            "CornerGrocers",
+            "QuickBiteMart",
+            "CityMarket",
+            "GreenGrocers",
+            "EasyShop",
+            "FamilyFare",
+            "BudgetBasket",
+            "SunshineSupermarket",
+            "CentralGrocery",
+            "FriendlyFoods",
+            "UrbanHarvest",
+            "MarketSquare",
+            "PantryPlus",
+            "CentralMarket",
+            "DailyDelights",
+            "GroceryGateway",
+            "HomeHarbor",
+            "TownTreats",
+            "VillageMart",
+            "FreshFields",
+            "FarmersMarket",
+            "GoodEatsGrocery",
+            "HappyHarvest",
+            "QuickNosh",
+            "RapidGrocers",
+            "FoodFrontier",
+            "LocalLarder",
+            "SunriseSupermart",
+            "MetroMarket",
+            "TownCenterFoods",
+            "GreenwayGrocers",
+            "EssentialEats",
+            "ExpressMart",
+            "MarketMasters",
+            "DailyDoseMart",
+            "GroceryGurus",
+            "SavvyShopper",
+            "MarketMingle",
+            "TopTasteMart",
+            "CityFoods",
+            "CornerCraze",
+            "GoodEarthGrocers",
+            "FriendlyFare",
+            "PantryPleasures",
+            "CornerMarket",
+            "CentralCraze",
+            "SuperSaverMart",
+            "SunsetSupermarket",
+            "PrimePantry",
+            "TownTaste",
+            "EcoEdibles",
+            "FoodFair",
+            "SunshineSupermart",
+            "TownTreasures",
+            "SmartSelections",
+            "CentralChoices",
+            "MarketMagic",
+            "EcoEats",
+            "FreshFinds",
+            "PrimePicks",
+            "SunriseSelections",
+            "BudgetBites",
+            "QuickQuarters",
+            "FreshFields",
+            "MarketMasters",
+            "UrbanUtopia",
+            "CentralCraze",
+            "CityCentreMart",
+            "SavvySelections",
+            "EssentialEats",
+            "SunriseSupermart",
+            "UrbanHarvest",
+            "QuickQuarters",
+            "HappyHarvest",
+            "MegaMarket",
+            "EverydayGrocery",
+            "NeighborhoodMart",
+            "SaveMore",
+            "ValueVillage",
+            "PrimeProduce",
+            "EssentialMart",
+            "SmartShopper",
+            "QuickBiteMart",
+            "CityMarket",
+            "Walmart",
+            "Target",
+            "Dillons"
+        };
+
         public static List<string> GenerateEmails()
         {
             List<string> result = new List<string>();
@@ -78,7 +180,7 @@ namespace GroceryProject
             {
                 Receipt receipt = new Receipt();
                 receipt.ID = r.Next(10000, 1000000) + "";
-                int rand = r.Next(0, 3);
+                int rand = r.Next(0, 10);
                 if(rand == 0)
                 {
                     receipt.StoreName = "DILLONS";
@@ -89,10 +191,16 @@ namespace GroceryProject
                     receipt.StoreName = "WALMART";
                     receipt.Street = "101 BlUEMONT AVE";
                 }
-                else
+                else if(rand == 2)
                 {
                     receipt.StoreName = "TARGET";
                     receipt.Street = "800 COMMONS PL";
+                }
+                else
+                {
+                    rand = r.Next(0, 100);
+                    receipt.StoreName = _commonGroceryStoreNames[rand];
+                    receipt.Street = "918 N MLK JR DR";
                 }
             
                 receipt.City = "MANHATTAN";
