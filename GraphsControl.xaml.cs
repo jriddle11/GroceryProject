@@ -110,32 +110,34 @@ namespace GroceryProject
                 "/rank_stores",
                 new { UserId = Main.UserId },
                 (string response) => {
-                List<(string, string, string, decimal)> result = JsonConvert.DeserializeObject<List<(string, string, string, decimal)>>(response);
-                //Name street phone money
-                List<(string, decimal)> list = new List<(string, decimal)>();
-                decimal total = 0;
-                foreach ((string, string, string, decimal) l in result)
-                {
-                    total += l.Item4;
-                    list.Add(new(l.Item1, l.Item4));
-                }
-                double totalpercentage = 0;
-                foreach (var store in list)
-                {
+                    List<(string, string, string, decimal)> result = JsonConvert.DeserializeObject<List<(string, string, string, decimal)>>(response);
+                    //Name street phone money
+                    List<(string, decimal)> list = new List<(string, decimal)>();
+                    decimal total = 0;
+                    foreach ((string, string, string, decimal) l in result)
+                    {
+                        total += l.Item4;
+                        list.Add(new(l.Item1, l.Item4));
+                    }
+                    double totalpercentage = 0;
+                    foreach (var store in list)
+                    {
                         double percentage;
-                        double.TryParse(""+ ((store.Item2 / total) * 100), out percentage);
+                        double.TryParse("" + ((store.Item2 / total) * 100), out percentage);
                         totalpercentage += percentage;
-                        series.Slices.Add(new PieSlice(store.Item1, percentage) { Fill = OxyColor.FromRgb(150,150, (byte)random.Next(150,255)) });
-                }
+                        byte r = (byte)random.Next(50, 200);
+
+                        series.Slices.Add(new PieSlice(store.Item1, percentage) { Fill = OxyColor.FromRgb(r, r, 255) });
+                    }
                     // Set the label position to Outside
 
                     // Add the PieSeries to the PlotModel
                     plotModel.Series.Add(series);
 
-                 // Set the PlotModel to the PlotView
-                 GraphSpot.Model = plotModel;
+                    // Set the PlotModel to the PlotView
+                    GraphSpot.Model = plotModel;
 
-                 graphTitle.Text = "Purchases per Store";
+                    graphTitle.Text = "Purchases per Store";
                 });
         }
 
@@ -154,7 +156,7 @@ namespace GroceryProject
         public void BarClick(object sender, RoutedEventArgs e)
         {
             // Create the PlotModel
-            var plotModel = new PlotModel { Title = "Grocery Item Costs" };
+            var plotModel = new PlotModel { };
 
             // Create the CategoryAxis (Y-axis)
             var yAxis = new CategoryAxis
@@ -194,13 +196,15 @@ namespace GroceryProject
                 new { UserId = Main.UserId },
                 (string response) => {
                     List<(string, decimal)> result = JsonConvert.DeserializeObject<List<(string, decimal)>>(response);
-                    List<string> list = new List<string>();
+                    result.Reverse();
+                    int i = 0;
                     foreach ((string, decimal) l in result)
                     {
-                        series.Items.Add(new BarItem { Value = (double)l.Item2, CategoryIndex = 0 });
+                        series.Items.Add(new BarItem { Value = (double)l.Item2, CategoryIndex = i++ });
                         items.Add(l.Item1);
 
                     }
+
                     // Add the BarSeries to the PlotModel
                     plotModel.Series.Add(series);
 
@@ -209,8 +213,9 @@ namespace GroceryProject
 
                     // Set the PlotModel to the PlotView
                     GraphSpot.Model = plotModel;
-                    graphTitle.Text = "Item Costs";
-                });
+                    graphTitle.Text = "Grocery Item Cost";
+                }
+            );
         }
 
         /// <summary>
