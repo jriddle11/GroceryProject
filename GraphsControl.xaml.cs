@@ -19,7 +19,6 @@ using System.Globalization;
 using OxyPlot.Wpf;
 using Newtonsoft.Json;
 
-
 namespace GroceryProject
 {
     /// <summary>
@@ -99,6 +98,7 @@ namespace GroceryProject
             // Create a PieSeries
             var series = new PieSeries
             {
+                FontSize = 12,
                 StrokeThickness = 2.0,
                 InsideLabelPosition = 0.8,
                 AngleSpan = 360,
@@ -128,8 +128,8 @@ namespace GroceryProject
                         series.Slices.Add(new PieSlice(store.Item1, percentage) { Fill = GetRandomColor() });
                 }
                     // Set the label position to Outside
-                    series.LabelField = LabelPlacement.Outside.ToString();
-                // Add the PieSeries to the PlotModel
+
+                    // Add the PieSeries to the PlotModel
                     plotModel.Series.Add(series);
 
                  // Set the PlotModel to the PlotView
