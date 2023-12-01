@@ -186,23 +186,31 @@ namespace GroceryProject
             };
 
             // Example data with unique item names
-            var items = new List<string> { "Item A", "Item B", "Item C" };
+            var items = new List<string>();
 
             // Add data points for grocery items and their costs
-            series.Items.Add(new BarItem { Value = 2.50, CategoryIndex = 0 });
-            series.Items.Add(new BarItem { Value = 5.99, CategoryIndex = 1 });
-            series.Items.Add(new BarItem { Value = 1.75, CategoryIndex = 2 });
-            // Add more items as needed...
+            Server.Request(
+                "/all_items_from_user",
+                new { UserId = Main.UserId },
+                (string response) => {
+                    List<(string, decimal)> result = JsonConvert.DeserializeObject<List<(string, decimal)>>(response);
+                    List<string> list = new List<string>();
+                    foreach ((string, decimal) l in result)
+                    {
+                        series.Items.Add(new BarItem { Value = (double)l.Item2, CategoryIndex = 0 });
+                        items.Add(l.Item1);
 
-            // Add the BarSeries to the PlotModel
-            plotModel.Series.Add(series);
+                    }
+                    // Add the BarSeries to the PlotModel
+                    plotModel.Series.Add(series);
 
-            // Set the Y-axis labels to the unique item names
-            yAxis.Labels.AddRange(items);
+                    // Set the Y-axis labels to the unique item names
+                    yAxis.Labels.AddRange(items);
 
-            // Set the PlotModel to the PlotView
-            GraphSpot.Model = plotModel;
-            graphTitle.Text = "Item Costs";
+                    // Set the PlotModel to the PlotView
+                    GraphSpot.Model = plotModel;
+                    graphTitle.Text = "Item Costs";
+                });
         }
 
         /// <summary>
