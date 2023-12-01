@@ -206,7 +206,7 @@ namespace GroceryProject
                 receipt.City = "MANHATTAN";
                 receipt.State = "KS";
                 receipt.PostalCode = 66502;
-                receipt.PhoneNumber = "999-999-9999";
+                receipt.PhoneNumber = r.Next(100, 1000) + "-" + r.Next(100, 1000) + "-" + r.Next(1000, 10000);
                 receipt.PaymentType = PaymentMethod.Debit;
                 List<PurchasedItem> purchasedItems = new List<PurchasedItem>();
                 receipt.Total = GenerateItems(purchasedItems);
