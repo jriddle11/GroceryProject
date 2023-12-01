@@ -200,7 +200,7 @@ namespace GroceryProject
                 {
                     rand = r.Next(0, _commonGroceryStoreNames.Length);
                     receipt.StoreName = _commonGroceryStoreNames[rand];
-                    receipt.Street = "918 N MLK JR DR";
+                    receipt.Street = rand + " N MLK JR DR";
                 }
             
                 receipt.City = "MANHATTAN";
