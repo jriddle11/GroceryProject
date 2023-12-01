@@ -42,10 +42,46 @@ namespace GroceryProject
                         UserEmailsAndPasswords.Add(l.Item1 + "   " + l.Item2);
                     }
                 });
-            totalUsers.Text = "";
-            totalItems.Text = "";
-            totalReceipts.Text = "";
-            totalSpent.Text = "";
+            Server.Request(
+                "/count_users",
+                new { },
+                (string response) => {
+                    int result = JsonConvert.DeserializeObject<int>(response);
+
+                    totalUsers.Text = result + "";
+                });
+            Server.Request(
+                "/count_items",
+                new { },
+                (string response) => {
+                    int result = JsonConvert.DeserializeObject<int>(response);
+
+                    totalItems.Text = result + "";
+                });
+            Server.Request(
+                "/count_receipts",
+                new { },
+                (string response) => {
+                    int result = JsonConvert.DeserializeObject<int>(response);
+
+                    totalReceipts.Text = result + "";
+                });
+            Server.Request(
+                "/count_items",
+                new { },
+                (string response) => {
+                    int result = JsonConvert.DeserializeObject<int>(response);
+
+                    totalItems.Text = result + "";
+                });
+            Server.Request(
+                "/count_spent",
+                new { },
+                (string response) => {
+                    decimal result = JsonConvert.DeserializeObject<decimal>(response);
+
+                    totalSpent.Text = "$" + result + "";
+                });
         }
     }
 }
