@@ -125,17 +125,25 @@ namespace GroceryProject
                         double percentage;
                         double.TryParse(""+ ((store.Item2 / total) * 100), out percentage);
                         totalpercentage += percentage;
-                        series.Slices.Add(new PieSlice(store.Item1, percentage) { Fill = OxyColors.AliceBlue });
-                    }
+                        series.Slices.Add(new PieSlice(store.Item1, percentage) { Fill = GetRandomColor() });
+                }
+                    // Set the label position to Outside
+                    series.LabelField = LabelPlacement.Outside.ToString();
+                // Add the PieSeries to the PlotModel
+                    plotModel.Series.Add(series);
+
+                 // Set the PlotModel to the PlotView
+                 GraphSpot.Model = plotModel;
+
+                 graphTitle.Text = "Purchases per Store";
                 });
+        }
 
-            // Add the PieSeries to the PlotModel
-            plotModel.Series.Add(series);
-
-            // Set the PlotModel to the PlotView
-            GraphSpot.Model = plotModel;
-
-            graphTitle.Text = "Purchases per Store";
+        private OxyColor GetRandomColor()
+        {
+            Random random = new Random();
+            var fields = typeof(OxyColors).GetFields();
+            return (OxyColor)fields[random.Next(0, fields.Length - 1)].GetValue(null);
         }
 
         /// <summary>
