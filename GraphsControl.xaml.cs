@@ -17,6 +17,7 @@ using OxyPlot.Series;
 using OxyPlot.Axes;
 using System.Globalization;
 using OxyPlot.Wpf;
+using Newtonsoft.Json;
 
 
 namespace GroceryProject
@@ -26,6 +27,7 @@ namespace GroceryProject
     /// </summary>
     public partial class GraphsControl : UserControl
     {
+        public MainWindow? Main;
         public GraphsControl()
         {
             InitializeComponent();
@@ -69,6 +71,8 @@ namespace GroceryProject
             plotModel.Axes.Add(xAxis);
 
             // Add data points can bed one via function
+            
+
             lineSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2023, 1, 1)), 100.56));
             lineSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2023, 2, 1)), 25.31));
             lineSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2023, 3, 1)), 10.23));
@@ -102,10 +106,28 @@ namespace GroceryProject
             };
 
             // Add data to the PieSeries
-            series.Slices.Add(new PieSlice("Walmart", 30) { Fill = OxyColors.SkyBlue });
-            series.Slices.Add(new PieSlice("Dillons", 40) { Fill = OxyColors.CadetBlue });
-            series.Slices.Add(new PieSlice("Hy-Vee", 20) { Fill = OxyColors.PowderBlue });
-            series.Slices.Add(new PieSlice("Aldis", 10) { Fill = OxyColors.LightBlue });
+            Server.Request(
+                "/rank_stores",
+                new { UserId = Main.UserId },
+                (string response) => {
+                List<(string, string, string, decimal)> result = JsonConvert.DeserializeObject<List<(string, string, string, decimal)>>(response);
+                //Name street phone money
+                List<(string, decimal)> list = new List<(string, decimal)>();
+                decimal total = 0;
+                foreach ((string, string, string, decimal) l in result)
+                {
+                    total += l.Item4;
+                    list.Add(new(l.Item1, l.Item4));
+                }
+                double totalpercentage = 0;
+                foreach (var store in list)
+                {
+                        double percentage;
+                        double.TryParse(""+ ((store.Item2 / total) * 100), out percentage);
+                        totalpercentage += percentage;
+                        series.Slices.Add(new PieSlice(store.Item1, percentage) { Fill = OxyColors.AliceBlue });
+                    }
+                });
 
             // Add the PieSeries to the PlotModel
             plotModel.Series.Add(series);

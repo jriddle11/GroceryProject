@@ -33,6 +33,7 @@ namespace GroceryProject
             ReciptCtrl.Main = this;
             AccountCtrl.Main = this;
             RankCtrl.Main = this;
+            GraphsCtrl.Main = this;
         }
 
         /// <summary>
