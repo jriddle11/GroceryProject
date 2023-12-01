@@ -125,7 +125,7 @@ namespace GroceryProject
                         double percentage;
                         double.TryParse(""+ ((store.Item2 / total) * 100), out percentage);
                         totalpercentage += percentage;
-                        series.Slices.Add(new PieSlice(store.Item1, percentage) { Fill = OxyColor.FromRgb(0,0, (byte)random.Next(255)) });
+                        series.Slices.Add(new PieSlice(store.Item1, percentage) { Fill = OxyColor.FromRgb(100,100, (byte)random.Next(100,255)) });
                 }
                     // Set the label position to Outside
 
