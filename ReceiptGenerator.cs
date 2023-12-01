@@ -214,6 +214,7 @@ namespace GroceryProject
                 receipt.SubTotal = receipt.Total - 3;
                 receipt.Tax1 = 2;
                 receipt.Tax2 = 1;
+                receipt.ReceiptDate = new DateTime(2023, 10, i);
                 result.Add(receipt);
             }
             return result;
