@@ -70,20 +70,20 @@ namespace GroceryProject
             plotModel.Axes.Add(xAxis);
 
             // Add data points can bed one via function
-            
-
-            lineSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2023, 1, 1)), 100.56));
-            lineSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2023, 2, 1)), 25.31));
-            lineSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2023, 3, 1)), 10.23));
-            lineSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2023, 4, 1)), 24.17));
-            lineSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2023, 5, 1)), 39.25));
-            lineSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2023, 6, 1)), 73.84));
-            lineSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2023, 7, 1)), 225.10));
-            lineSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2023, 8, 1)), 356.64));
-
-            plotModel.Series.Add(lineSeries);
-            GraphSpot.Model = plotModel; // Set the PlotModel to the PlotView
-            graphTitle.Text = "Purchases over Time";
+            Server.Request(
+                "/user_purchases",
+                new { UserId = Main.UserId },
+                (string response) => {
+                    List<(string, decimal, DateTime)> result = JsonConvert.DeserializeObject<List<(string, decimal, DateTime)>>(response);
+                    foreach ((string, decimal, DateTime) l in result)
+                    {
+                        lineSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(l.Item3), (double)l.Item2));
+                    }
+                    plotModel.Series.Add(lineSeries);
+                    GraphSpot.Model = plotModel; // Set the PlotModel to the PlotView
+                    graphTitle.Text = "Purchases over Time";
+                }
+            );
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace GroceryProject
             // Create a PieSeries
             var series = new PieSeries
             {
-                FontSize = 12,
+                FontSize = 10,
                 StrokeThickness = 2.0,
                 InsideLabelPosition = 0.8,
                 AngleSpan = 360,
